@@ -66,7 +66,7 @@
             </p>
         </div>
         <div id="personInfor">
-            <p id="userName">{php} if(session('admin_wl'))echo session('admin_wl')->name{/php} <a
+            <p id="userName">{php} if(session(config('admin_session')))echo session(config('admin_session'))->name{/php} <a
                         href="{:Url('admin/logout')}">&nbsp;&nbsp;&nbsp;&nbsp;退出登录</a></p>
 <!--            <p><a href="{:Url('gshpc/index/index')}" target="_blank">前台</a></p>-->
 			<?php if(\app\back\model\Admin::isAdmin()){?>

@@ -26,7 +26,7 @@ class AdminController extends BaseController {
 
     //login.html
     public function login() {
-        if(!empty(session('admin_wl'))){
+        if(!empty(session(config('admin_session')))){
             $this->error('您已登录！');
         }
         return $this->fetch('');
@@ -36,7 +36,7 @@ class AdminController extends BaseController {
      *   login submit
      * */
     public function sigin(Request $request) {
-        if(!empty(session('admin_wl'))){
+        if(!empty(session(config('admin_session')))){
             $this->error('您已登录！');
         }
         $captcha = new Captcha();
@@ -47,12 +47,14 @@ class AdminController extends BaseController {
         $pass = $request->param('pass');
 
         $pwd = Admin::pwdGenerate($pass);
-//        return $pwd;
+
+    //    return $pwd;
         $condition = array();
         $condition['name'] = $name;
         $condition['pwd'] = $pwd;
+//        dump($condition);
         $admin = Admin::get($condition);
-
+//dump($admin);exit;
         if ($admin) {
             if ($admin->type == '一般') {
                 if ($admin->st != '正常') {
@@ -60,8 +62,8 @@ class AdminController extends BaseController {
                 }
             }
             $admin->setInc('times');
-            session('admin_wl', (object)array('name' => $admin->name, 'id' => $admin->id, 'type' => $admin->type, 'truename' => $admin->truename,'privilege'=>$admin->privilege));
-            //dump(session('admin_wl'));exit;
+            session(config('admin_session'), (object)array('name' => $admin->name, 'id' => $admin->id, 'type' => $admin->type, 'truename' => $admin->truename,'privilege'=>$admin->privilege));
+            //dump(session(config('admin_session')));exit;
             $ip = $_SERVER['REMOTE_ADDR'];
             (new AdminLog())->addLog($admin->id, $ip);
             $this->redirect("index/index");
