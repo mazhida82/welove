@@ -42,7 +42,7 @@ class CateController extends BaseController {
         $referer= $request->header()['referer'];
         //dump($referer);
         $row_ = $this->findById($data['id'],new Cate());
-        return $this->fetch('create',['row_'=>$row_,'referer'=>$referer,'title'=>'修改分类','act'=>'update']);
+        return $this->fetch('edit',['row_'=>$row_,'referer'=>$referer,'title'=>'修改分类','act'=>'update']);
 
     }
 

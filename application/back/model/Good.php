@@ -36,37 +36,31 @@ class Good extends Base {
         }
         return false;
     }
-    public static function getList($data=[],$field='good.*,cate.name cate_name,shop.name shop_name',$where=['good.st' => ['=', 1]]) {
+    public static function getList($data=[],$field='wl_good.*,cate.name cate_name',$where=['wl_good.st' => ['=', 1]]) {
         //$where = ['good.st' => ['<>', 0], 'cate.st' => ['<>', 0]];
         $order = "create_time desc";
-        if(Admin::isShopAdmin()){
-            $where['good.shop_id'] = session('admin_zhx')->shop_id;
-        }
         if (!empty($data['to_top'])) {
-            $where['good.to_top'] = $data['to_top'];
+            $where['wl_good.to_top'] = $data['to_top'];
         }
         if (!empty($data['cate_id'])) {
-            $where['shop.cate_id'] = $data['cate_id'];
-        }
-        if (!empty($data['shop_id'])) {
-            $where['shop_id'] = $data['shop_id'];
+            $where['wl_good.cate_id'] = $data['cate_id'];
         }
         if (!empty($data['name'])) {
-            $where['good.name'] = ['like','%'.$data['name'].'%'];
+            $where['wl_good.name'] = ['like','%'.$data['name'].'%'];
         }
         if(!empty($data['index_show'])){
             $where['index_show'] = $data['index_show'];
         }
         if (!empty($data['paixu'])) {
-            $order = 'good.'.$data['paixu'] . ' asc';
+            $order = 'wl_good.'.$data['paixu'] . ' asc';
         }
         if (!empty($data['paixu']) && !empty($data['sort_type'])) {
-            $order = 'good.'.$data['paixu'] . ' desc';
+            $order = 'wl_good.'.$data['paixu'] . ' desc';
         }
         if(!empty($data['st']) ){
-            $where['good.st']= ['=',2];
+            $where['wl_good.st']= ['=',2];
         }
-        $list_ = self::where($where)->join('shop','shop.id=good.shop_id')->join('cate', 'shop.cate_id=cate.id', 'left')->field($field)->order($order)->paginate(10);
+        $list_ = self::where($where)->join('cate', 'cate.id=cate.id', 'left')->field($field)->order($order)->paginate(10);
 //        dump($list_);exit;
         return $list_;
     }

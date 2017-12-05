@@ -28,15 +28,6 @@
         <div class="col-xs-11">
             <form method="get" action="{:url('index')}" id="searchForm">
                 <div class="col-xs-7">
-
-                    <?php if(!$isShopAdmin){?>
-                    <select name="shop_id" style="color:inherit">
-                        <option value="">--请选择商户--</option>
-                        <?php foreach ($list_shop as $row_) { ?>
-                            <option value="{$row_['id']}" {eq name="Think.get.shop_id" value="$row_['id']"
-                                    }selected{/eq}>{$row_['id']}:{$row_['name']}</option>
-                        <?php } ?>
-                    </select>
                     <select name="cate_id" style="color:inherit">
                         <option value="">--请选择分类--</option>
                         <?php foreach ($list_cate as $row_) { ?>
@@ -44,7 +35,6 @@
                                     }selected{/eq}>{$row_->name}</option>
                         <?php } ?>
                     </select>
-                    <?php }?>
                     <input type="text" name="name" value="{$Think.get.name}" class="form-control input-sm"
                            placeholder="输入名称搜索">
 

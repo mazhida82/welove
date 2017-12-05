@@ -20,19 +20,6 @@
         <div class="col-xs-10">
             <form method="get" action="{:url('index')}">
                 <div class="col-xs-5">
-
-                    <select name="type_id" style="color:inherit">
-                        <option value="">--请选择类型--</option>
-                        <?php foreach (\app\back\model\Cate::$type_cate as $row_) { ?>
-                            <option value="{$row_['type_id']}" {eq name="Think.get.type_id" value="$row_['type_id']"
-                                    }selected{/eq}>{$row_['title']}</option>
-                        <?php } ?>
-                    </select>
-
-                    <input type="text" name="name" value="{$Think.get.name}" class="form-control input-sm"
-                           placeholder="输入名称搜索">
-
-
                 </div>
                 <div class=" col-xs-7" style=" padding-right: 40px;">
                     <select style="color:inherit" class=" form-control" name="paixu">
@@ -61,9 +48,6 @@
             <div class="col-xs-2">
                 名称
             </div>
-            <div class="col-xs-1 ">
-                类型
-            </div>
             <div class="col-xs-1">
                 排序
             </div>
@@ -85,9 +69,7 @@
                         <div class="col-xs-2" title="{$row_->name}">
                             {$row_->name}
                         </div>
-                        <div class="col-xs-1 ">
-                            {$row_->type}
-                        </div>
+
                         <div class="col-xs-1">
                             {$row_->sort}
                         </div>

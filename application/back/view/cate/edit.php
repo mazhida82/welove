@@ -10,9 +10,9 @@
 <!--弹出添加用户窗口-->
 <form class="form-horizontal" action="{:url($act)}" method="post" >
     <?php if($act=='update'){?>
-    <input type="hidden" name="id" value="{$row_->id}">
-    <input type="hidden" name="referer" value="{$referer}">
-<?php }?>
+        <input type="hidden" name="id" value="{$row_->id}">
+        <input type="hidden" name="referer" value="{$referer}">
+    <?php }?>
     <div class="row">
         <div class="col-xs-8">
             <div class="text-center">
@@ -24,7 +24,14 @@
                     <div class="form-group">
                         <label for="sKnot" class="col-xs-3 control-label"><span style="color:red;">*&nbsp;&nbsp;</span>名称：</label>
                         <div class="col-xs-8 ">
-                            <input type="text" class="form-control input-sm duiqi" name='name' value="{$row_->name|default=''}" id=""
+                            <input type="text" class="form-control input-sm duiqi" name='name' value="{$row_->name}" id=""
+                                   placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sKnot" class="col-xs-3 control-label"><span style="color:red;">*&nbsp;&nbsp;</span>排序：</label>
+                        <div class="col-xs-8 ">
+                            <input type="text" class="form-control input-sm duiqi" name='sort' value="{$row_->sort}" id=""
                                    placeholder="">
                         </div>
                     </div>

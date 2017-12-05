@@ -21,12 +21,12 @@ class BaseController extends Controller {
             'admin/captcha'
         );
         //echo $current_request;exit;
-        if (!(session('admin_zhx') || in_array($current_request, $not_logins))) {
+        if (!(session('admin_wl') || in_array($current_request, $not_logins))) {
             $this->redirect("admin/login");
         }
 
         //商户权限
-        if (!empty(session('admin_zhx')) && Admin::isShopAdmin()) {
+        if (!empty(session('admin_wl')) && Admin::isShopAdmin()) {
             $allow_act = false;
             $list_menu = MenuAdmin::getList();
             foreach ($list_menu as $row_) {
@@ -43,7 +43,7 @@ class BaseController extends Controller {
             }
         }
 
-        if(!empty(session('admin_zhx')) && Admin::isGeneral()){
+        if(!empty(session('admin_wl')) && Admin::isGeneral()){
             $my_power = MenuAdmin::getListNormal();
             $is_have_power = false;
             foreach ($my_power as $power){
@@ -58,6 +58,7 @@ class BaseController extends Controller {
                 $this->error('您没有此权限');
             }
         }
+
 
     }
 

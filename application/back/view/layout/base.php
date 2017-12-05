@@ -66,12 +66,12 @@
             </p>
         </div>
         <div id="personInfor">
-            <p id="userName">{php} if(session('admin_zhx'))echo session('admin_zhx')->name{/php} <a
+            <p id="userName">{php} if(session('admin_wl'))echo session('admin_wl')->name{/php} <a
                         href="{:Url('admin/logout')}">&nbsp;&nbsp;&nbsp;&nbsp;退出登录</a></p>
 <!--            <p><a href="{:Url('gshpc/index/index')}" target="_blank">前台</a></p>-->
-			<?php /*if(\app\back\model\Admin::isAdmin()){*/?><!--
+			<?php if(\app\back\model\Admin::isAdmin()){?>
             <p><a href="{:Url('menu_admin/index')}">管理菜单</a></p>
---><?php /*}*/?>
+<?php }?>
             <p><a href="{:Url('index/index')}">登录日志</a></p>
             <?php if(\app\back\model\Admin::isAdmin()){?>
             <p> <a href="__PUBLIC__/bake.php">备份数据库</a></p>

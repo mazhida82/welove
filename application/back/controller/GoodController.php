@@ -27,14 +27,12 @@ class GoodController extends BaseController {
             $this->error($res);
         }
         $list_ = Good::getList($data);
-        $list_shop = Shop::getListAll();
-        $list_cate = Cate::getAllCateByType(1);
+        $list_cate = Cate::getList();
         // dump($list_shop);
         $page_str = $list_->render();
         $page_str = Base::getPageStr($data, $page_str);
         $url = $request->url();
-        $isShopAdmin = Admin::isShopAdmin();
-        return $this->fetch('index', ['list_' => $list_, 'isShopAdmin' => $isShopAdmin, 'list_shop' => $list_shop, 'list_cate' => $list_cate, 'url' => $url, 'page_str' => $page_str]);
+        return $this->fetch('index', ['list_' => $list_,'url' => $url, 'page_str' => $page_str,'list_cate'=>$list_cate]);
     }
 
     /**
@@ -43,14 +41,8 @@ class GoodController extends BaseController {
      * @return \think\Response
      */
     public function create() {
-
-        $list_shop = Shop::getListAll();
-        $isShopAdmin = Admin::isShopAdmin();
-//        dump(session('admin_zhx'));exit;
-//        dump($list_shop);exit;
-        //$list_cate= Cate::getAllCateByType(1);
-        return $this->fetch('', ['list_shop' => $list_shop, 'isShopAdmin' => $isShopAdmin, 'title' => '添加商品', 'act' => 'save']);
-
+        $cate_list = Cate::getList();
+        return $this->fetch('', ['title' => '添加商品', 'act' => 'save','cate_list'=>$cate_list]);
     }
 
     /**
@@ -62,6 +54,7 @@ class GoodController extends BaseController {
     public function save(Request $request) {
 
         $data = $request->param();
+        dump($data);exit;
         /*  $res = $this->validate($data, 'GoodValidate');
           if ($res !== true) {
               $this->error($res);

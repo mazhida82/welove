@@ -56,7 +56,7 @@ class Good extends Base {
         //$where = ['good.st' => ['<>', 0], 'cate.st' => ['<>', 0]];
         $order = "create_time desc";
         if(Admin::isShopAdmin()){
-            $where['good.shop_id'] = session('admin_zhx')->shop_id;
+            $where['good.shop_id'] = session('admin_wl')->shop_id;
         }
         if (!empty($data['to_top'])) {
             $where['good.to_top'] = $data['to_top'];

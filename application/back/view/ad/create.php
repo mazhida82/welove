@@ -34,12 +34,12 @@
                         <div class="form-group ">
                             <label for="sName" class="col-xs-3 control-label"><span style="color:red;">*&nbsp;&nbsp;</span>链接方向：</label>
                             <div class="col-xs-8 ">
-                                <label><input class="url_to" type="radio" name="url_to" checked value="1">活动详情</label>
+<!--                                <label><input class="url_to" type="radio" name="url_to" checked value="1">活动详情</label>-->
                                 <label ><input class="url_to" type="radio" name ='url_to' value="2">商品详情</label>
-                                <label ><input class="url_to" type="radio" name ='url_to' value="3">店铺详情</label>
-                                <label ><input class="url_to" type="radio" name ='url_to' value="4">店铺列表</label>
-                                <label ><input class="url_to" type="radio" name ='url_to' value="5">线上拼团</label>
-                                <label ><input class="url_to" type="radio" name ='url_to' value="6">公益验房</label>
+<!--                                <label ><input class="url_to" type="radio" name ='url_to' value="3">店铺详情</label>-->
+<!--                                <label ><input class="url_to" type="radio" name ='url_to' value="4">店铺列表</label>-->
+<!--                                <label ><input class="url_to" type="radio" name ='url_to' value="5">线上拼团</label>-->
+<!--                                <label ><input class="url_to" type="radio" name ='url_to' value="6">公益验房</label>-->
                                 <label ><input class="url_to" type="radio" name ='url_to' value="0">无</label>
                             </div>
                         </div>

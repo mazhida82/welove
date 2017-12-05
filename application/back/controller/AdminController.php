@@ -26,7 +26,7 @@ class AdminController extends BaseController {
 
     //login.html
     public function login() {
-        if(!empty(session('admin_zhx'))){
+        if(!empty(session('admin_wl'))){
             $this->error('您已登录！');
         }
         return $this->fetch('');
@@ -36,7 +36,7 @@ class AdminController extends BaseController {
      *   login submit
      * */
     public function sigin(Request $request) {
-        if(!empty(session('admin_zhx'))){
+        if(!empty(session('admin_wl'))){
             $this->error('您已登录！');
         }
         $captcha = new Captcha();
@@ -47,21 +47,21 @@ class AdminController extends BaseController {
         $pass = $request->param('pass');
 
         $pwd = Admin::pwdGenerate($pass);
-        //return $pwd;
+//        return $pwd;
         $condition = array();
         $condition['name'] = $name;
         $condition['pwd'] = $pwd;
         $admin = Admin::get($condition);
 
         if ($admin) {
-            if ($admin->type == '商户') {
+            if ($admin->type == '一般') {
                 if ($admin->st != '正常') {
                     $this->error('禁用或删联系平台！');
                 }
             }
             $admin->setInc('times');
-            session('admin_zhx', (object)array('name' => $admin->name, 'id' => $admin->id, 'type' => $admin->type, 'truename' => $admin->truename, 'shop_id' => $admin->shop_id,'privilege'=>$admin->privilege));
-            //dump(session('admin_zhx'));exit;
+            session('admin_wl', (object)array('name' => $admin->name, 'id' => $admin->id, 'type' => $admin->type, 'truename' => $admin->truename,'privilege'=>$admin->privilege));
+            //dump(session('admin_wl'));exit;
             $ip = $_SERVER['REMOTE_ADDR'];
             (new AdminLog())->addLog($admin->id, $ip);
             $this->redirect("index/index");

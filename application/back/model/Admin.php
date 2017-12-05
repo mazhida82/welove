@@ -13,12 +13,12 @@ class Admin extends Base {
     }
 
     public function getTypeAttr($value) {
-        $status = [1 => '超级', 2 => '商户', 3 => '一般'];
+        $status = [1 => '超级', 2 => '一般'];
         return $status[$value];
     }
 
     public static function pwdGenerate($pass) {
-        return md5(md5($pass) . 'zhuangxiu');
+        return md5(md5($pass) . 'welove');
     }
 
     public static function findByName($name) {
@@ -29,10 +29,6 @@ class Admin extends Base {
     public static  function getList($data=[]){
         $order = "create_time asc";
         $where = ['st'=>['=',1]];
-       // dump($data['shop_id']);exit;
-        if (!empty($data['shop_id'])) {
-            $where['shop_id'] = $data['shop_id'];
-        }
        // dump($where);exit;
       if (!empty($data['name_'])) {
             $where['name|truename']=['like', '%' . $data['name_'] . '%'];
@@ -51,7 +47,7 @@ class Admin extends Base {
      * 判断是不是商户管理员
      * */
     public static function isShopAdmin() {
-        if (session('admin_zhx')->type == '商户') {
+        if (session('admin_wl')->type == '商户') {
             return true;
         }
         return false;
@@ -60,7 +56,7 @@ class Admin extends Base {
   * 判断是不是超级管理
   * */
     public static function isAdmin(){
-        if (session('admin_zhx')->type == '超级') {
+        if (session('admin_wl')->type == '超级') {
             return true;
         }
         return false;
@@ -69,7 +65,7 @@ class Admin extends Base {
 * 判断是不是超级管理
 * */
     public static function isGeneral(){
-        if (session('admin_zhx')->type == '一般') {
+        if (session('admin_wl')->type == '一般') {
             return true;
         }
         return false;
@@ -79,7 +75,7 @@ class Admin extends Base {
      * 获取商品管理员用户收益
      */
     public static function getBenefit(){
-        $id = session('admin_zhx')->id;
+        $id = session('admin_wl')->id;
         $benefit = self::where('id',$id)->find();
         return $benefit['income'];
     }
@@ -91,13 +87,4 @@ class Admin extends Base {
         $benefit = self::where(['id'=>$data])->find();
         return $benefit['income'];
     }
-	/*
-	 * 根据商家id查询相应的管理员，一个商家只有一个管理员
-	 * zhuangxiu-zyg
-	 *
-	 * @return boolean
-	 * */
-	public static function findShopAdmin($shop_id){
-		return self::where(['shop_id'=>$shop_id,'st'=>1])->find();
-	}
 }

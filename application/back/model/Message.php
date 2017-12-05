@@ -15,7 +15,7 @@ class Message extends Base{
      */
     public static function getList($data=[],$where=['message.st' => ['=',1]]){
         if(Admin::isShopAdmin()){
-            $where['message.shop_id']=session('admin_zhx')->shop_id;
+            $where['message.shop_id']=session('admin_wl')->shop_id;
         }
         if(!empty($data['shop_id'])){
             $where['message.shop_id']=$data['shop_id'];

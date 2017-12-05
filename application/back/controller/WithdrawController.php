@@ -30,7 +30,7 @@ class WithdrawController extends BaseController{
     public function edit(Request $request){
         $benefit = Admin::getBenefit();
         $minBenefit = Setting::getMinBenefit();
-        $id = session('admin_zhx')->id;
+        $id = session('admin_wl')->id;
         $referer = $request->header()['referer'];
         return $this->fetch('edit',['admin_id'=>$id,'minBenefit'=>$minBenefit,'benefit'=>$benefit,'referer'=>$referer,'title'=>'申请提现','act'=>'update']);
     }

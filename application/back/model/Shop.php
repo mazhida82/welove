@@ -35,8 +35,8 @@ class Shop extends Base {
     public static function getList($data = [], $field = 'shop.*,cate.name cate_name,admin.id admin_id,admin.name admin_name,admin.st admin_st', $where = ['shop.st' => ['=', 1]]) {
         // $where = ['st' => ['<>',0]];
         $order = "create_time desc";
-        if (session('admin_zhx')->type == '商户') {
-            $where['shop.id'] = session('admin_zhx')->shop_id;
+        if (session('admin_wl')->type == '商户') {
+            $where['shop.id'] = session('admin_wl')->shop_id;
         }
 
         if (!empty($data['cate_id'])) {
