@@ -15,7 +15,7 @@ class MenuAdmin extends model {
     public static function getList() {
 
         if(Admin::isShopAdmin()){
-           //dump( session('admin_wl'));exit;
+           //dump( session(config('admin_session')));exit;
             $list_first = self::where(['pid' => 0,'is_show_to_shop'=>1])->order('sort asc')->select();
             foreach ($list_first as $k => $first) {
                 $list_second = self::where(['pid' => $first->id,'is_show_to_shop'=>1])->order('sort asc')->select();
@@ -23,7 +23,7 @@ class MenuAdmin extends model {
                 $list_first[$k]['childs'] = $list_second;
             }
         }else{
-           // dump( session('admin_wl'));exit;
+           // dump( session(config('admin_session')));exit;
             $list_first = self::where(['pid' => 0])->order('sort asc')->select();
             foreach ($list_first as $k => $first) {
                 $list_second = self::where(['pid' => $first->id])->order('sort asc')->select();
@@ -40,7 +40,7 @@ class MenuAdmin extends model {
      * */
     public static function getListNormal(){
        // dump(98798797);exit;
-        $list_first = self::where(['id' => ['in',session('admin_wl')->privilege]])->order('sort asc')->select();
+        $list_first = self::where(['id' => ['in',session(config('admin_session'))->privilege]])->order('sort asc')->select();
         return $list_first;
     }
     public static function getPower(){

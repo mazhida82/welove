@@ -46,3 +46,5 @@ ADD COLUMN `sort`  tinyint(4) NOT NULL DEFAULT 100 COMMENT '排序' AFTER `sku_i
 
 
 
+
+

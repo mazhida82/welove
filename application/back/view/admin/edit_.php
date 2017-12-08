@@ -46,7 +46,7 @@
                                        value="" id="" placeholder="留空表示不改">
                             </div>
                         </div>
-<?php if(session('admin_wl')->type=='超级'){?>
+<?php if(session(config('admin_session'))->type=='超级'){?>
                         <div class="form-group">
                             <label for="situation" class="col-xs-3 control-label">状态：</label>
                             <div class="col-xs-8">

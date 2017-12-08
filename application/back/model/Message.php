@@ -17,6 +17,7 @@ class Message extends Base{
      * @param array $where
      * 处理主页资源列表
      */
+
     public static function getList($data=[],$where=['wl_message.st' => ['=',1]]){
        $order = 'wl_message.create_time desc';
         $fields = 'wl_message.*,wl_user.nickname,wl_user.username';

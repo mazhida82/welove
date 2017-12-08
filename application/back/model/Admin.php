@@ -47,7 +47,7 @@ class Admin extends Base {
      * 判断是不是商户管理员
      * */
     public static function isShopAdmin() {
-        if (session('admin_wl')->type == '商户') {
+        if (session(config('admin_session'))->type == '商户') {
             return true;
         }
         return false;
@@ -56,7 +56,7 @@ class Admin extends Base {
   * 判断是不是超级管理
   * */
     public static function isAdmin(){
-        if (session('admin_wl')->type == '超级') {
+        if (session(config('admin_session'))->type == '超级') {
             return true;
         }
         return false;
@@ -65,7 +65,7 @@ class Admin extends Base {
 * 判断是不是超级管理
 * */
     public static function isGeneral(){
-        if (session('admin_wl')->type == '一般') {
+        if (session(config('admin_session'))->type == '一般') {
             return true;
         }
         return false;
@@ -75,7 +75,7 @@ class Admin extends Base {
      * 获取商品管理员用户收益
      */
     public static function getBenefit(){
-        $id = session('admin_wl')->id;
+        $id = session(config('admin_session'))->id;
         $benefit = self::where('id',$id)->find();
         return $benefit['income'];
     }

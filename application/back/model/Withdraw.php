@@ -21,12 +21,12 @@ class Withdraw extends Base{
 
     public static function getList($data,$field=['withdraw.*,admin.truename admin_truename,admin.name admin_name']){
         $order = 'create_time desc';
-//        dump(session('admin_wl'));exit;
+//        dump(session(config('admin_session')));exit;
         $where = '';
         $time_from = isset($data['time_from'])?$data['time_from']:'';
         $time_to = isset($data['time_to'])?$data['time_to']:'';
         if(Admin::isShopAdmin()){
-            $where['withdraw.admin_id'] = session('admin_wl')->id;
+            $where['withdraw.admin_id'] = session(config('admin_session'))->id;
         }
         if(!empty($time_from)){
             $where['withdraw.create_time']=['gt',strtotime($time_from)];
