@@ -4,7 +4,8 @@ namespace app\back\controller;
 use app\back\model\Message;
 use think\Request;
 use app\back\model\Base;
-
+use app\back\controller\BaseController;
+use app\back\model\User;
 class MessageController extends BaseController{
     /**
      * 展示留言主页
@@ -16,44 +17,68 @@ class MessageController extends BaseController{
         $page_str = $list_->render();
         $page_str = Base::getPageStr($data, $page_str);
         $url = $request->url();
-        return $this->fetch('index', ['list_' => $list_,'title'=>'查看留言','page_str' => $page_str,'url'=>$url]);
+        return $this->fetch('index', ['list_' => $list_,'title'=>'消息列表','page_str' => $page_str,'url'=>$url]);
     }
 
     /**
-     * 查看留言(更改留言状态为已查看)
+     * 添加消息页面渲染
+     * @return mixed
      */
-    public function edit(Request $request){
-        $data = $request->param();
-        $list = Message::getListById($data);
-        if($list->isEmpty()){
-            $this->error('暂无数据');
-        }
-        $page_str = $list->render();
-        $page_str = Base::getPageStr($data,$page_str);
-        $url = $request->url();
-//        dump($list);exit;
-        return $this->fetch('info',['list_'=>$list,'page_str' => $page_str,'title'=>'留言列表','url'=>$url]);
-    }
-/*
- * 管理员回复
- * */
-    public function save(Request $request){
-        $data=$request->post();
-        $data['type']=2;
-         $back = $data['url'];unset ($data['url']);
-        (new Message())->save($data);
-        $this->success('成功',$back,'',1);
+    public function create(){
+        return $this->fetch('',['title'=>'发布消息','act'=>'save']);
     }
 
     /**
-     * 删除留言
+     * 执行发送消息动作
+     * @param Request $request
+     */
+    public function save(Request $request){
+        $data = $request->param();
+        $user = $this->findIdByName($data['name'],new User());
+        unset($data['name']);
+        $data['user_id'] = $user->id;
+        (new Message())->save($data);
+        $this->success('发布成功','index','','1');
+    }
+
+    /**
+     * 查看消息页面渲染
+     * @param Request $request
+     * @return mixed
+     */
+    public function edit(Request $request) {
+        $data = $request->param();
+        $row = $this->findById($data['id'], new Message());
+        $user = $this->findById($row['user_id'], new User());
+        return $this->fetch('',['row'=>$row,'username'=>$user['username'],'title'=>'查看留言详情','act'=>'update']);
+    }
+
+    /**
+     * 执行修改消息动作
+     * @param Request $request
+     */
+    public function update(Request $request){
+        $data = $request->param();
+        $user = $this->findIdByName($data['name'],new User());
+        unset($data['name']);
+        $data['user_id'] = $user->id;
+        if ($this->saveById($data['id'], new Message(), $data)) {
+            $this->success('编辑成功', 'index', '', 1);
+        } else {
+            $this->error('编辑失败', 'index', '', 1);
+        }
+    }
+
+    /**
+     * 执行删除动作
+     * @param Request $request
      */
     public function delete(Request $request){
         $data = $request->param();
         if ($this->deleteStatusById($data['id'], new Message())) {
-            return json(['code'=>0]);
+            $this->success('删除成功', $data['url'], '', 1);
         } else {
-            return json(['code'=>1,'msg'=>'删除失败']);
+            $this->error('删除失败', $data['url'], '', 3);
         }
     }
 }

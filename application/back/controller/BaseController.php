@@ -5,7 +5,6 @@ use app\back\model\Admin;
 use app\back\model\MenuAdmin;
 use think\Controller;
 use think\Request;
-
 class BaseController extends Controller {
 
     public function __construct() {
@@ -74,6 +73,17 @@ class BaseController extends Controller {
         return $row;
     }
 
+    public function findIdByName($name, $model){
+        if(empty($name)){
+            $this->error('用户名不能为空');
+        }
+        $row = $model->where('username',$name)->find();
+        if(!$row){
+            $this->error('对象不存在');
+        }
+        return $row;
+    }
+
     public function deleteById($id, $model) {
         if (empty($id) || !is_numeric($id)) {
             $this->error('id参数有误');
@@ -97,6 +107,21 @@ class BaseController extends Controller {
             $this->error('对象不存在');
         }
         $row->st = 0;
+        if ($row->save()) {
+            return $row;
+        }
+        return false;
+    }
+
+    protected function deleteStById($id, $model) {
+        if (empty($id) || !is_numeric($id)) {
+            $this->error('id参数有误');
+        }
+        $row = $model->find($id);
+        if (!$row) {
+            $this->error('对象不存在');
+        }
+        $row->status = 0;
         if ($row->save()) {
             return $row;
         }

@@ -73,9 +73,6 @@
             <div class="col-xs-1 ">
                 编号
             </div>
-            <div class="col-xs-1 ">
-                店铺
-            </div>
             <div class="col-xs-1">
                 名称
             </div>
@@ -92,13 +89,9 @@
                 列表图
             </div>
             <div class="col-xs-1">
-                置顶
-            </div>
-
-            <div class="col-xs-1">
                 状 态
             </div>
-            <div class="col-xs-1">
+            <div class="col-xs-2">
                 时间
             </div>
 
@@ -108,73 +101,75 @@
         </div>
         <div class="tablebody">
             <?php if (count($list_) > 0) { ?>
-                <?php foreach ($list_ as $key => $row_) { ?>
+                <?php foreach ($list_ as $key => $row) { ?>
                     <div class="row cont_nowrap">
                         <div class="col-xs-1 ">
-                            {$row_->id}
+                            {$row->id}
                         </div>
-                        <div class="col-xs-1 " title="{$row_->shop_name}">
-                            {$row_->shop_id}:{$row_->shop_name}
+                        <div class="col-xs-1 " title="{$row->name}">
+                            {$row->name}
                         </div>
-                        <div class="col-xs-1 " title="{$row_->name}">
-                            {$row_->name}
+                        <div class="col-xs-1 " title="{$row->cate_name}">
+                            {$row->cate_name}
                         </div>
-                        <div class="col-xs-1 " title="{$row_->cate_name}">
-                            {$row_->cate_name}
+                        <div class="col-xs-1 " title="{$row->price}">
+                            {$row->price}
                         </div>
-                        <div class="col-xs-1 " title="{$row_->price}">
-                            {$row_->price}
-                        </div>
-                        <div class="col-xs-1 " title="{$row_->sales}">
-                            {$row_->sales}
+                        <div class="col-xs-1 " title="{$row->sales}">
+                            {$row->sales}
                         </div>
                         <div class="col-xs-1">
-                            <a href="__IMGURL__{$row_->img}" target="_blank">
-                                <img src="__IMGURL__{$row_->img}" height="55" alt="没有">
+                            <a href="__IMGURL__{$row->img}" target="_blank">
+                                <img src="__IMGURL__{$row->img}" height="55" alt="没有">
                             </a>
                         </div>
-
                         <div class="col-xs-1">
-                            {$row_->to_top}
-                        </div>
-                        <div class="col-xs-1">
-                            <?php if ($row_->st == '下架') { ?>
+                            <?php if ($row->st == '下架') { ?>
 
-                                <span style="color:red">{$row_->st}</span>
+                                <span style="color:red">{$row->st}</span>
                             <?php } else { ?>
 
-                                {$row_->st}
+                                {$row->st}
                             <?php } ?>
 
                         </div>
-                        <div class="col-xs-1" title="{$row_->create_time}">
-                            {$row_->create_time}
+                        <div class="col-xs-2" title="{$row->create_time}">
+                            {$row->create_time}
                         </div>
                         <div class="col-xs-">
-<?php if($row_->img_big_st==0){?>
-                            <a href="{:url('create_img_bigs')}?id={$row_->id}">
+<?php if($row->img_big_st==0){?>
+                            <a href="{:url('create_img_bigs')}?id={$row->id}">
                                 <button class="btn btn-success btn-xs edit_" title="添加大图">加图</button>
                             </a>
                         <?php }else{?>
-    <a href="{:url('edit_img_bigs')}?id={$row_->id}">
+    <a href="{:url('edit_img_bigs')}?id={$row->id}">
         <button class="btn btn-success btn-xs edit_" title="查看大图">查图</button>
     </a>
 
 <?php }?>
 
-                            <a href="{:url('edit')}?id={$row_->id}">
+                            <a href="{:url('edit')}?id={$row->id}">
                                 <button class="btn btn-success btn-xs edit_" title="修改商品">修</button>
                             </a>
 
-                    <?php if ($row_->st == '下架') { ?>
+                    <?php if ($row->st == '下架') { ?>
                             <button class="btn btn-danger btn-xs del_cate" data-toggle="modal"
-                                    data-target="#deleteSource" data-id="<?= $row_['id'] ?>" onclick="del_(this)"> 删
+                                    data-target="#deleteSource" data-id="<?= $row['id'] ?>" onclick="del_(this)"> 删
                             </button>
                     <?php } else{?>
                         <button class="btn btn-danger btn-xs del_cate" data-toggle="modal"
-                                data-target="#downSource" data-id="<?= $row_['id'] ?>" onclick="down_(this)" title="下架"> 下
+                                data-target="#downSource" data-id="<?= $row['id'] ?>" onclick="down_(this)" title="下架"> 下
                         </button>
                         <?php }?>
+                            <?php if($row->property_st == 0){?>
+                                <a href="{:url('create_property')}?id={$row->id}">
+                                    <button class="btn btn-success btn-xs edit_" title="完善商品属性">完善</button>
+                                </a>
+                            <?php }else{ ?>
+                                <a href="{:url('edit_property')}?id={$row->id}">
+                                    <button class="btn btn-success btn-xs edit_" title="查看商品属性">查看</button>
+                                </a>
+                            <?php }?>
                             <!-- <a href="{:url('good_attr/create')}?good_id={$row_->id}"><button class="btn <?php /*if($row_->is_add_attr==0){*/ ?>btn-info<?php /*}else{*/ ?>btn-danger<?php /*}*/ ?> btn-xs edit_" ><?php /*if($row_->is_add_attr==0){*/ ?> 完参数<?php /*}else{*/ ?>更参数<?php /*}*/ ?></button></a>-->
 
                         </div>

@@ -12,10 +12,6 @@ class Good extends Base {
         return $status[$value];
     }
 
-   public function getToTopAttr($value) {
-        $status = [0 => '否', 1 => '是'];
-        return $status[$value];
-    }
     public function updateAddAttr($good_id){
         $row_good = $this->where(['id'=>$good_id])->find();
         $row_good->is_add_attr =1 ;
@@ -36,20 +32,14 @@ class Good extends Base {
         }
         return false;
     }
-    public static function getList($data=[],$field='wl_good.*,cate.name cate_name',$where=['wl_good.st' => ['=', 1]]) {
+    public static function getList($data=[],$field='wl_good.*,wl_cate.name cate_name',$where=['wl_good.st' => ['=', 1]]) {
         //$where = ['good.st' => ['<>', 0], 'cate.st' => ['<>', 0]];
         $order = "create_time desc";
-        if (!empty($data['to_top'])) {
-            $where['wl_good.to_top'] = $data['to_top'];
-        }
         if (!empty($data['cate_id'])) {
             $where['wl_good.cate_id'] = $data['cate_id'];
         }
         if (!empty($data['name'])) {
             $where['wl_good.name'] = ['like','%'.$data['name'].'%'];
-        }
-        if(!empty($data['index_show'])){
-            $where['index_show'] = $data['index_show'];
         }
         if (!empty($data['paixu'])) {
             $order = 'wl_good.'.$data['paixu'] . ' asc';
@@ -60,7 +50,7 @@ class Good extends Base {
         if(!empty($data['st']) ){
             $where['wl_good.st']= ['=',2];
         }
-        $list_ = self::where($where)->join('cate', 'cate.id=cate.id', 'left')->field($field)->order($order)->paginate(10);
+        $list_ = self::where($where)->join('wl_cate', 'wl_cate.id=wl_good.cate_id', 'left')->field($field)->order($order)->paginate(10);
 //        dump($list_);exit;
         return $list_;
     }

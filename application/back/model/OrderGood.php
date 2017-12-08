@@ -16,7 +16,7 @@ class OrderGood extends model {
     public static function getGood($order_id) {
 
         $where = ['order_id' => $order_id];
-        $list_ = self::where($where)->order('create_time asc')->field('id,name good_name,good_id,price,num,img,st,price_group,group_deposit,unit')->select();
+        $list_ = self::where($where)->order('create_time asc')->field('id,name good_name,good_id,price,num,img,st')->select();
         return $list_;
     }
 
@@ -35,9 +35,9 @@ class OrderGood extends model {
 		//
 		$row_order_good_prepare = self::where(['order_id'=>$row_->order_id,'st'=>self::ST_PREPARE])->find();
         if($row_order_good_prepare){
-			Dingdan::updateGoodst($row_->order_id,'part');
+			Order::updateGoodst($row_->order_id,'part');
 		}else{
-			Dingdan::updateGoodst($row_->order_id,'all');
+			Order::updateGoodst($row_->order_id,'all');
 		}
 		return true;
 	}

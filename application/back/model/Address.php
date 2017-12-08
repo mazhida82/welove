@@ -31,7 +31,7 @@ class Address extends Base
         $data['user_id'] = $user_id;
 
         if($this->save($data)){
-            $m_order = new Dingdan();
+            $m_order = new Order();
             $m_order->save(['address_id'=>$this->id],['id'=>$order_id]);
             return ['code'=>0,'msg'=>'add address ok','data'=>$this->id];
         }else{

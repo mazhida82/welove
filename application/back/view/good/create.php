@@ -13,6 +13,24 @@ $('#cate_name_label').html(cate_name);
     }
 </script>
 	<!--弹出添加用户窗口-->
+<link rel="stylesheet" href="__EDITOR__/themes/default/default.css" />
+<script charset="utf-8" src="__EDITOR__/kindeditor-min.js"></script>
+<script charset="utf-8" src="__EDITOR__/lang/zh_CN.js"></script>
+<script>
+    KindEditor.ready(function (K) {
+        // var editor = K.create('#desc_textarea');
+        var editor = K.create('textarea[name="desc"]',{
+            themeType: 'simple',
+            resizeType: 1,
+//            uploadJson: '__EDITOR__/php/upload_json.php',
+//            fileManagerJson: '__EDITOR__/php/file_manager_json.php',
+            allowFileManager: true,
+            //下面这行代码就是关键的所在，当失去焦点时执行 this.sync();
+            afterBlur: function(){this.sync();}
+        });
+    });
+</script>
+
 <form id="addForm" class="form-horizontal" action="{:url($act)}" method="post" enctype="multipart/form-data" >
 		<div class="row" >
 			<div class="col-xs-8">
@@ -59,21 +77,10 @@ $('#cate_name_label').html(cate_name);
                                 <input type="text" class="form-control input-sm duiqi" name='price' value="" id="" placeholder="0.00元">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="sName" class="col-xs-3 control-label"><span style="color:red;">*&nbsp;&nbsp;</span>是否拥有规格：</label>
-                            <div class="col-xs-4 ">
-                                <label  class="col-xs-2 control-label">
-                                    <input class="have_sku" type="radio" name="sku" value="0" checked>否
-                                </label>
-                                <label  class="col-xs-2 control-label">
-                                    <input class="have_sku" type="radio" name="sku" value="1">是
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group" hidden id="sku_desc">
-                            <label for="sName" class="col-xs-3 control-label"><span style="color:red;">*&nbsp;&nbsp;</span>规格：</label>
-                            <div class="col-xs-4 ">
-                                <input type="text" name="sku">
+                        <div class="form-group ">
+                            <label for="sName" class="col-xs-3 control-label"><span style="color:red;">*&nbsp;&nbsp;</span>排序：</label>
+                            <div class="col-xs-8 ">
+                                <input type="text" class="form-control input-sm duiqi" name='sort' value="" id="" placeholder="">
                             </div>
                         </div>
                         <div class="form-group " id="desc_text">
@@ -94,74 +101,6 @@ $('#cate_name_label').html(cate_name);
 </form>
 
 <script>
-    $('.have_sku').click(function(){
-        if(this.value == 1){
-            $('#sku_desc').show();
-        }else{
-            $('#sku_desc').hide();
-        }
-    });
-      $(function () {
-
-        $('form').bootstrapValidator({/*
-            fields: {
-                name: {
-                    validators:
-                        {
-                            notEmpty: {
-                                message: '名称不能为空'
-                            }
-                        }
-
-                },
-                price: {
-                    validators:
-                        {
-                            notEmpty: {
-                                message: '不能为空'
-                            }
-                        }
-
-                },
-                unit: {
-                    validators:
-                        {
-                            notEmpty: {
-                                message: '不能为空'
-                            }
-                        }
-
-                },
-
-                shop_id: {
-                    validators: {
-                        notEmpty: {
-                            message: '请选择'
-                        }
-
-
-                    }
-                },
-
-                img: {
-                    validators: {
-                        notEmpty: {
-                            message: '请添加缩略图'
-                        }
-                    }
-                },
-                img_big: {
-                    validators: {
-                        notEmpty: {
-                            message: '请添加详情页图'
-                        }
-                    }
-                },
-
-            }
-        }*/);
-
-    });
 
 </script>
 

@@ -24,7 +24,7 @@ class Fankui extends Base {
         $data_['cont']= $data['cont'];
 
         $this->save($data_);
-        Dingdan::updateSt(['st'=>'fankui','order_id'=>$data['order_id']]);
+        Order::updateSt(['st'=>'fankui','order_id'=>$data['order_id']]);
         return ['code'=>0,'msg'=>'add fankui ok'];
     }
     public static function getListPage($data=[]){
@@ -44,7 +44,7 @@ class Fankui extends Base {
         if(!empty($data['paixu'])){
             $where['star'] = $data['paixu'];
         }
-        $list_ = self::where($where)->join('dingdan','fankui.order_id=dingdan.id','left')->join('user','fankui.user_id=user.id','left')->join('shop','fankui.shop_id=shop.id','left')->field('fankui.*,dingdan.orderno,user.username username,shop.name shop_name')->paginate(10);
+        $list_ = self::where($where)->join('order','fankui.order_id=order.id','left')->join('user','fankui.user_id=user.id','left')->join('shop','fankui.shop_id=shop.id','left')->field('fankui.*,order.orderno,user.username username,shop.name shop_name')->paginate(10);
         return $list_;
     }
     public static function getList($data){

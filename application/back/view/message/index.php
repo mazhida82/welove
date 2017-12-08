@@ -14,8 +14,6 @@
 		</div>
         <div class="col-xs-10">
             <form method="get" action="{:url('index')}" id="searchForm">
-                <input type="text" name="shop_id" value="{$Think.get.shop_id}" class="form-control input-sm"
-                       placeholder="输入商家编号搜索">
                 <!--<div class=" col-xs-5" style=" padding-right: 40px;color:inherit">
                     <select class=" form-control" name="paixu">
                         <option value="">--请选择排序字段--</option>
@@ -46,19 +44,15 @@
             <div class="col-xs-1 ">
                 用户昵称
             </div>
-            <div class="col-xs-1">
-                店铺名
-            </div>
 			<div class="col-xs-2">
 				留言信息
 			</div>
             <div class="col-xs-2">
                 发送时间
 			</div>
-            <div class="col-xs-1">
-                回复数
+            <div class="col-xs-1 ">
+                状态
             </div>
-
 			<div class="col-xs-">
 				操 作
 			</div>
@@ -71,13 +65,10 @@
                     {$row_->id}
                 </div>
                 <div class="col-xs-1 " title="{$row_->username}">
-					{$row_->user_id}:{$row_->username}
+					{$row_->user_id}.{$row_->username}
                 </div>
                 <div class="col-xs-1" title="{$row_->nickname}">
                     {$row_->nickname}
-                </div>
-                <div class="col-xs-1" title="{$row_->shop_id}:{$row_->shop_name}">
-                    {$row_->shop_id}:{$row_->shop_name}
                 </div>
 				<div class="col-xs-2" title="{$row_->message}">
 					{$row_->message}
@@ -85,15 +76,14 @@
                 <div class="col-xs-2">
 					{$row_->create_time}
                 </div>
-                <div class="col-xs-1">
-                    {$row_->sum}
+                <div class="col-xs-1 ">
+                    {$row_->type}
                 </div>
-
 				<div class="col-xs-">
-                    <a href="{:url('edit')}?user_id={$row_->user_id}&shop_id={$row_->shop_id}"><button class="btn btn-success btn-xs edit_" >查看</button></a>
-                   <!-- <button class="btn btn-danger btn-xs del_cate" data-toggle="modal"
-							data-target="#deleteSource" data-id="<?/*= $row_['id'] */?>" onclick="del_(this)"> 删除
-                    </button>-->
+                    <a href="{:url('edit')}?id={$row_->id}"><button class="btn btn-success btn-xs edit_" >查看</button></a>
+                    <button class="btn btn-danger btn-xs del_cate" data-toggle="modal"
+							data-target="#deleteSource" data-id="<?= $row_['id'] ?>" onclick="del_(this)"> 删除
+                    </button>
 				</div>
 			</div>
 			<?php }?>

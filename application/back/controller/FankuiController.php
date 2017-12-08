@@ -4,7 +4,7 @@ namespace app\back\controller;
 
 use app\back\model\Address;
 use app\back\model\Base;
-use app\back\model\Dingdan;
+use app\back\model\Order;
 use app\back\model\Cate;
 
 use app\back\model\Fankui;
