@@ -142,7 +142,7 @@ return [
     ],
 
     // 视图输出字符串内容替换
-    'view_replace_str' => ['__STATIC__' => '/weilaitp/public/static/', '__IMGURL__' => '/weilaitp/public/', '__PUBLIC__' => '/weilaitp/public/static/back/', '__EDITOR__' => '/weilaitp/public/editor/',],
+    'view_replace_str' => ['__PUBLIC__'=>'/welovetp/public/static/','__EDITOR__'=>'/welovetp/public/editor/','__IMGURL__'=>'/welovetp/public/','__EXCEL__'=>'/welovetp/vendor/phpoffice/phpexcel/Classes/'],
     // 默认跳转页面对应的模板文件
     'dispatch_success_tmpl' => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
     'dispatch_error_tmpl' => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
