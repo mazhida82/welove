@@ -27,7 +27,6 @@ class UserController extends BaseController {
 			return json(['code'=>__LINE__,'msg'=>'登录或注册失败！']);
 		}
         curl_close($ch);
-        dump($output);exit;
         $open_id = json_decode($output)->openid;
         return json(User::registUserByOpenId($open_id));
     }
