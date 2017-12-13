@@ -9,7 +9,7 @@ use app\back\model\MenuAdmin;
 class MenuAdminController extends BaseController {
     public function index() {
         $list_ = MenuAdmin::getList();
-        //dump($list_);
+//        dump($list_);
         return $this->fetch('index', ['list_' => $list_]);
     }
 

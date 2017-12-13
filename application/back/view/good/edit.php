@@ -87,6 +87,11 @@
                                 <input type="text" class="form-control input-sm duiqi" name='sort' value="{$row_->sort}" id="" placeholder="">
                             </div>
                         </div>
+                        <div class="form-group ">
+                            <label for="sName" class="col-xs-3 control-label"><span style="color:red;">*&nbsp;&nbsp;</span>是否首页推荐：</label>
+                            <label ><input type="radio"  name='is_home_page' value="1" <?php echo $row_->is_home_page==1?'checked':'' ?> >是</label>&nbsp; 　&nbsp;
+                            <label ><input type="radio"  name='is_home_page' value="0" <?php echo $row_->is_home_page==0?'checked':'' ?> >否</label>
+                        </div>
                        <?php if($row_->st=='下架'){?>
                         <div class="form-group">
                             <label for="situation" class="col-xs-3 control-label">状态：</label>

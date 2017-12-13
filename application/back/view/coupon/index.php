@@ -50,12 +50,15 @@
                 规则
             </div>
             <div class="col-xs-2">
+                列表图
+            </div>
+            <div class="col-xs-1">
                 开始时间
             </div>
-            <div class="col-xs-2">
+            <div class="col-xs-1">
                 结束时间
             </div>
-            <div class="col-xs-2">
+            <div class="col-xs-1">
                 添加时间
             </div>
             <div class="col-xs-">
@@ -76,12 +79,17 @@
                             满{$row->rule}元，减{$row->solution}元
                         </div>
                         <div class="col-xs-2">
+                            <a href="__IMGURL__{$row->img}" target="_blank">
+                                <img src="__IMGURL__{$row->img}" style="height:65px;max-width:175px;" alt="没有">
+                            </a>
+                        </div>
+                        <div class="col-xs-1" title="<?php echo date('Y-m-d H:i:s',$row->start_time);?>">
                             <?php echo date('Y-m-d H:i:s',$row->start_time);?>
                         </div>
-                        <div class="col-xs-2">
+                        <div class="col-xs-1" title=" <?php echo date('Y-m-d H:i:s',$row->end_time);?>">
                             <?php echo date('Y-m-d H:i:s',$row->end_time);?>
                         </div>
-                        <div class="col-xs-2">
+                        <div class="col-xs-1" title="{$row->create_time}">
                             {$row->create_time}
                         </div>
                         <div class="col-xs-">

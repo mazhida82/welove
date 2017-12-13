@@ -11,14 +11,15 @@ class CateController extends BaseController {
 
     public function index(Request $request) {
         $data = $request->param();
-        $list_ = Cate::getList($data);
+        $list_ = Cate::getChildId();
+//        dump($list_);exit;
         $url = $request->url();
         return $this->fetch('',['list_'=>$list_,'url'=>$url]);
     }
 
     public function create(Request $request) {
-
-            return $this->fetch('', ['title'=>'添加分类','act'=>'save']);
+        $list = Cate::getChildId();
+        return $this->fetch('', ['title'=>'添加分类','act'=>'save','list'=>$list]);
     }
 
     public function save(Request $request) {
@@ -62,11 +63,10 @@ class CateController extends BaseController {
 
     public function delete(Request $request) {
         $data = $request->param();
-        $list_shop = Shop::getListByCateId($data['id']);
         $list_good = Good::getListByCateId($data['id']);
 
-        if(count($list_good)>0 || count($list_shop)>0){
-          $this->error('分类下有商品或商户，不能直接删除');
+        if($list_good){
+          $this->error('分类下有商品，不能直接删除');
        }
         if ($this->deleteStatusById($data['id'], new Cate())) {
             $this->success('删除成功', $data['url'], '', 1);

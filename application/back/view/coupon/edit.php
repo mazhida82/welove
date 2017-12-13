@@ -8,7 +8,7 @@
 </style>
 
 <!--弹出添加用户窗口-->
-<form class="form-horizontal" action="{:url($act)}" method="post" >
+<form class="form-horizontal" action="{:url($act)}" method="post" enctype="multipart/form-data">
     <input type="hidden" name="id" value="{$id}">
     <input type="hidden" name="referer" value="{$referer}">
     <div class="row">
@@ -50,6 +50,13 @@
                         <label for="sKnot" class="col-xs-3 control-label"><span style="color:red;">*&nbsp;&nbsp;</span>结束时间：</label>
                         <div class="col-xs-8 ">
                             <input type="text" class="form-control input-sm duiqi" name='end_time' value="<?php echo date('Y-m-d',$list->end_time);?>">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sOrd" class="col-xs-3 control-label"><span style="color:red;">*&nbsp;&nbsp;</span>列表图：</label>
+                        <div class="col-xs-4 ">
+                            <img src="__IMGURL__{$list->img}" alt="没有上传图片" width="188"/>
+                            <input type="file" title='' class="form-control  duiqi" id="sOrd" name="img" placeholder=""><span style="color:red">尺寸要求（220*113），大小不超过<?php echo floor(config('upload_size')/1024/1024);?>M。</span>
                         </div>
                     </div>
                 </div>

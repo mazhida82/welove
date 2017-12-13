@@ -18,7 +18,10 @@ class Ad extends Base {
         $status = [0=>'无', 1 => '活动详情', 2 => '商品详情',3=> '店铺详情', 4 => '店铺列表',5=>'线上拼团',6=>'公益验房'];
         return $status[$value];
     }
-
+    public function getTypeAttr($value){
+        $status = [0=>'轮播图',1=>'首页广告图',2=>'分类页广告图'];
+        return $status[$value];
+    }
     public function getStAttr($value) {
         $status = [0 => 'deleted', 1 => '正常', 2 => '不显示'];
         return $status[$value];

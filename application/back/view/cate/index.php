@@ -48,6 +48,9 @@
             <div class="col-xs-2">
                 名称
             </div>
+            <div class="col-xs-2">
+                上级名称
+            </div>
             <div class="col-xs-1">
                 排序
             </div>
@@ -69,7 +72,9 @@
                         <div class="col-xs-2" title="{$row_->name}">
                             {$row_->name}
                         </div>
-
+                        <div class="col-xs-2" >
+                            {$row_->getName($row_->pid)}
+                        </div>
                         <div class="col-xs-1">
                             {$row_->sort}
                         </div>
@@ -87,6 +92,34 @@
                         </div>
 
                     </div>
+                    <?php foreach($row_->childs as $k2=>$row_child){?>
+                        <div class="row cont_nowrap">
+                            <div class="col-xs-1 ">
+                                {$row_child->id}
+                            </div>
+                            <div class="col-xs-2 " title="{$row_->name}">
+                                {$row_child->name}
+                            </div>
+                            <div class="col-xs-2 ">
+                                {$row_->getName($row_child->pid)}
+                            </div>
+                            <div class="col-xs-1">
+                                {$row_child->sort}
+                            </div>
+                            <div class="col-xs-2">
+                                {$row_child->create_time}
+                            </div>
+                            <div class="col-xs-">
+                                <a href="{:url('edit')}?id={$row_child->id}">
+                                    <button class="btn btn-success btn-xs edit_">修改</button>
+                                </a>
+                                <button class="btn btn-danger btn-xs del_cate" data-toggle="modal"
+                                        data-target="#deleteSource" data-id="<?= $row_child['id'] ?>" onclick="del_(this)"> 删除
+                                </button>
+                            </div>
+
+                        </div>
+                    <?php }?>
                 <?php } ?>
             <?php } else { ?>
                 <div class="row">

@@ -40,10 +40,18 @@
 <!--                                <label ><input class="url_to" type="radio" name ='url_to' value="4">店铺列表</label>-->
 <!--                                <label ><input class="url_to" type="radio" name ='url_to' value="5">线上拼团</label>-->
 <!--                                <label ><input class="url_to" type="radio" name ='url_to' value="6">公益验房</label>-->
-                                <label ><input class="url_to" type="radio" name ='url_to' value="0">无</label>
+                                <label ><input class="url_to" type="radio" name ='url_to' value="0" checked>无</label>
                             </div>
                         </div>
-                        <div class="form-group " id="url_id_div" style="display: block;">
+                        <div class="form-group ">
+                            <label for="sName" class="col-xs-3 control-label"><span style="color:red;">*&nbsp;&nbsp;</span>类型：</label>
+                            <div class="col-xs-8 ">
+                                <label ><input  type="radio" name ='type' value="0" checked>轮播图</label>
+                                <label ><input  type="radio" name ='type' value="1" >首页广告图</label>
+                                <label ><input  type="radio" name ='type' value="2" >分类页广告图</label>
+                            </div>
+                        </div>
+                        <div class="form-group " id="url_id_div" style="display: none;">
                             <label for="sName" class="col-xs-3 control-label"><span id="url_desc">编号</span>：</label>
                             <div class="col-xs-8 ">
                                 <input type="text" class="form-control input-sm duiqi" name='url' value="" id="" placeholder="">
@@ -70,7 +78,7 @@
 
 <script>
 $('.url_to').click(function () {
-    if(this.value==0 || this.value==4 || this.value==6){
+    if(this.value==0){
         $('#url_id_div').hide();
     }else{
         $('#url_id_div').show();

@@ -22,9 +22,20 @@
             <div class="">
                 <div class="container-fluid">
                     <div class="form-group">
-                        <label for="sKnot" class="col-xs-3 control-label"><span style="color:red;">*&nbsp;&nbsp;</span>名称：</label>
+                        <label for="sKnot" class="col-xs-3 control-label"><span style="color:red;">*&nbsp;&nbsp;</span>上级：</label>
+                        <div class="col-xs-8">
+                            <select class=" form-control select-duiqi" name="pid" id="a_cate_id">
+                                <option value="0">-- 请选择 --</option>
+                                <?php foreach ($list as $k => $row_) { ?>
+                                    <option value="{$row_->id}">{$row_->name}</option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label for="sName" class="col-xs-3 control-label"><span style="color:red;">*&nbsp;&nbsp;</span>名称： </label>
                         <div class="col-xs-8 ">
-                            <input type="text" class="form-control input-sm duiqi" name='name' value="{$row_->name|default=''}" id=""
+                            <input type="text" class="form-control input-sm duiqi" name='name' value="" id=""
                                    placeholder="">
                         </div>
                     </div>

@@ -27,7 +27,6 @@ class MenuAdmin extends model {
             $list_first = self::where(['pid' => 0])->order('sort asc')->select();
             foreach ($list_first as $k => $first) {
                 $list_second = self::where(['pid' => $first->id])->order('sort asc')->select();
-
                 $list_first[$k]['childs'] = $list_second;
             }
         }

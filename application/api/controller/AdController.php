@@ -17,10 +17,15 @@ class AdController extends BaseController
 
    public function index() {
         return json(Ad::getList());
-
    }
 
+    public function home_page(){
+        return json(Ad::getHomePage());
+    }
 
+    public function cate(){
+        return json(Ad::getCatePage());
+    }
 
 
 

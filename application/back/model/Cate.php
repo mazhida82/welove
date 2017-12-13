@@ -26,6 +26,19 @@ class Cate extends model {
         return $list_;
     }
 
+    public static function getChildId(){
+        $list_parent = self::where(['pid'=>0,'st'=>1])->order('sort asc')->select();
+        foreach($list_parent as $k=>$v){
+            $list_child = self::where(['pid'=>$v->id,'st'=>1])->order('sort asc')->select();
+            $list_parent[$k]['childs'] = $list_child;
+        }
+        return $list_parent;
+    }
+
+    public function getName($pid){
+        return $pid==0?'一级':$this->where('id',$pid)->value('name');
+    }
+
 
     public static function getListAll(){
         $where = ['st' => ['=',1],'type'=>['=',2]];
@@ -34,6 +47,7 @@ class Cate extends model {
 
         return $list_;
     }
+
 
 
 }

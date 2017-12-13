@@ -46,6 +46,14 @@
                             <label ><input class="url_to" type="radio" name ='url_to' <?= $row_->url_to=='无'?'checked':'';?>  value="0">无</label>
                         </div>
                     </div>
+                    <div class="form-group ">
+                        <label for="sName" class="col-xs-3 control-label"><span style="color:red;">*&nbsp;&nbsp;</span>类型：</label>
+                        <div class="col-xs-8 ">
+                            <label ><input  type="radio" name ='type' value="0" <?php echo $row_->type=='轮播图'?'checked':''; ?>>轮播图</label>
+                            <label ><input  type="radio" name ='type' value="1" <?php echo $row_->type=='首页广告图'?'checked':''; ?>>首页广告图</label>
+                            <label ><input  type="radio" name ='type' value="2" <?php echo $row_->type=='分类页广告图'?'checked':''; ?>>分类页广告图</label>
+                        </div>
+                    </div>
                     <div class="form-group " id="url_id_div" style="display: block;">
                         <label for="sName" class="col-xs-3 control-label"><span id="url_desc">编号</span>：</label>
                         <div class="col-xs-8 ">

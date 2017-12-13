@@ -83,6 +83,11 @@ $('#cate_name_label').html(cate_name);
                                 <input type="text" class="form-control input-sm duiqi" name='sort' value="" id="" placeholder="">
                             </div>
                         </div>
+                        <div class="form-group ">
+                            <label for="sName" class="col-xs-3 control-label"><span style="color:red;">*&nbsp;&nbsp;</span>是否首页推荐：</label>
+                            <label ><input type="radio"  name='is_home_page' value="1" id="" >是</label>&nbsp; 　&nbsp;
+                            <label ><input type="radio"  name='is_home_page' value="0" id="" checked>否</label>
+                        </div>
                         <div class="form-group " id="desc_text">
                             <label for="sName" class="col-xs-3 control-label">描述：</label>
                             <div class="col-xs-8 ">

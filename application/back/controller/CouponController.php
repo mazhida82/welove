@@ -37,6 +37,18 @@ class CouponController extends BaseController{
         $data = $request->param();
         $data['start_time'] = strtotime($data['start_time']);
         $data['end_time'] = strtotime($data['end_time']);
+        $file = $request->file('img');
+        if(empty($file)){
+            $this->error('请上传图片或检查图片大小');
+        }
+        $size = $file->getSize();
+        if($size > config('upload_size')){
+            $this->error('图片大小超过系统设定');
+        }
+        $path_name = 'coupon';
+        $arr = $this->dealImg($file, $path_name);
+        $data['img'] = $arr['save_url_path'];
+
         (new Coupon())->save($data);
         $this->success('添加成功', 'index', '', 1);
     }
@@ -45,7 +57,7 @@ class CouponController extends BaseController{
      * 优惠券修改页渲染
      */
     public function edit(Request $request){
-        $id = $request->get('id');
+        $id = $request->param('id');
         $list = $this->findById($id,new Coupon());
         $referer = $request->header()['referer'];
         return $this->fetch('', ['id' => $id, 'referer' => $referer, 'title' => '修改 ' . $list->name . ' 优惠券', 'act' => 'update','list'=>$list]);
@@ -61,6 +73,19 @@ class CouponController extends BaseController{
         $data['start_time'] = strtotime($data['start_time']);
         $data['end_time'] = strtotime($data['end_time']);
         unset($data['referer']);
+
+        $file = $request->file('img');
+        $row_ = $this->findById($data['id'], new Coupon());
+        if (!empty($file)) {
+            $path_name = 'coupon';
+            $size = $file->getSize();
+            if ($size > config('upload_size')) {
+                $this->error('图片大小超过限定！');
+            }
+            $this->deleteImg($row_->img);
+            $arr = $this->dealImg($file, $path_name);
+            $data['img'] = $arr['save_url_path'];
+        }
         if ($this->saveById($data['id'], new Coupon(), $data)) {
 
             $this->success('修改成功', $referer, '', 1);
