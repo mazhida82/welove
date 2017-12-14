@@ -12,7 +12,6 @@ class ShopController extends BaseController
      * 商家列表：可以根据分类查询，根据销量等排序
      * */
    public function index(Request $request){
-
        $data = $request->param();
        $rule = ['cate_id' => 'number'];
        $res = $this->validate($data, $rule);

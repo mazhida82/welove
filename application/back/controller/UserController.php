@@ -28,54 +28,6 @@ class UserController extends BaseController
 		return $this->fetch('index',['list'=>$list]);
     }
 
-    /**
-     * 显示创建资源表单页.
-     *
-     * @return \think\Response
-     */
-    public function create()
-    {
-
-
-    }
-
-    /**
-     * 保存新建的资源
-     *
-     * @param  \think\Request  $request
-     * @return \think\Response
-     */
-    public function save(Request $request)
-    {
-
-
-    }
-
-    /**
-     * 显示指定的资源
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function read($id)
-    {
-        //
-		//return 'user-read';
-		return $id;
-    }
-
-    /**
-     * 显示编辑资源表单页.
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function edit(Request $request)
-    {
-		$id = $request->get('id');
-		return $this->updateById($id,new User());
-
-    }
 
     /**
      * 保存更新的资源
@@ -116,12 +68,5 @@ class UserController extends BaseController
 		$row->save();
 		$this->redirect('index');
     }
-    //get  addresses of user
-    /*public function getAddresses(Request $request){
-		$id=$request->param('id');
-		$row = User::get($id);
-		$list = $row->addresses;
 
-		return $this->fetch('address/index',['list'=>$list]);
-	}*/
 }
