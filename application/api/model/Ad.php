@@ -14,7 +14,7 @@ class Ad extends Base {
 
     public static function getList() {
 
-        $list_ = self::where(['st'=>1])->order( "sort asc")->cache()->select();
+        $list_ = self::where(['st'=>1,'type'=>0])->order( "sort asc")->select();
 
         return ['code'=>0,'data'=>$list_];
 
