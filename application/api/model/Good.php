@@ -59,14 +59,14 @@ class Good extends Base {
         if($list[0]->property_st==1){
             $property = Property::where(['good_id'=>$list[0]->id,'st'=>1])->select();
             $arr = $list[0]->data;
-            unset($arr['price']);
             foreach($property as $k=>$v){
-                $array['price'] = $v->price;
-                $array['value'] = $v->value;
-                $ar = array_merge($arr,$array);
-                $new[$k]=$ar;
+                $arr['property'][$k] = $v->data;
+//                $array['price'] = $v->price;
+//                $array['value'] = $v->value;
+//                $ar = array_merge($arr,$array);
+//                $new[$k]=$ar;
             }
-            return ['code'=>0,'data'=>$new];
+            return ['code'=>0,'data'=>$arr];
         }else{
             return ['code'=>0,'data'=>$list];
         }

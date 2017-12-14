@@ -8,7 +8,7 @@ use think\Request;
 class CartController extends BaseController {
 
     /*
-    * 添加购物车：给用户加一个购物车，一个商家对应一个车
+    * 添加购物车：给用户加一个购物车
     * */
     public function index(Request $request) {
         $data = $request->param();
@@ -22,13 +22,13 @@ class CartController extends BaseController {
     }
 
     /*
-     * 添加购物车：给用户加一个购物车，一个商家对应一个车
+     * 添加购物车：给用户加一个购物车
      * */
     public function save(Request $request) {
         $data = $request->param();
         //dump( $data);exit;
         $rule = ['username'=>'require','good_id'=>'require|number','num'=>'require|number'];
-        $res = $this->validate($data,$rule);
+        $res = $this->validate($data,$rule );
         //dump( $res);exit;
         if($res !== true){
             return json(['code'=>__LINE__,'msg'=>$res]);
