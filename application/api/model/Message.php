@@ -21,9 +21,13 @@ class Message extends Base {
         return ['code'=>0,'data'=>$list];
     }
 
+    /**查看消息详情
+     * @param $data
+     * @return array
+     */
     public static function getInfo($data){
         $user_id = User::getUserIdByName($data['username']);
-        $list = self::where(['user_id'=>$user_id,'id'=>$data['message_id']])->select();
+        $list = self::where(['user_id'=>$user_id,'id'=>$data['message_id']])->find();
 //        if($list->isEmpty()){
 //            return ['code'=>__LINE__,'msg'=>'暂无数据'];
 //        }

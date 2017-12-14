@@ -23,6 +23,11 @@ class MessageController extends BaseController
         return json(Message::getList($data['username']));
     }
 
+    /**
+     * 查看消息详情页
+     * @param Request $request
+     * @return \think\response\Json
+     */
     public function info(Request $request){
         $data = $request -> param();
         $rule = ['username'=>'require','message_id'=>'require|number'];
