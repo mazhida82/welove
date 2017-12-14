@@ -47,6 +47,17 @@ class Base extends model {
         return $row;
     }
 
+//    public function findByGoodId($id,$model){
+//        if(empty($id) || !is_numeric($id)){
+//            $this->error('id参数有误');
+//        }
+//        $row = $model->where(['good_id'=>$id])->select();
+//        if(!$row){
+//            $this->error('对象不存在');
+//        }
+//        return $row;
+//    }
+
     public static function getByDivId($model,$where=['st'=>1],$field='*'){
 
         $row = $model->where($where)->find();

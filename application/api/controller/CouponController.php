@@ -13,4 +13,34 @@ class CouponController extends BaseController
     public function index(){
         return json(Coupon::getList());
     }
+
+    /**
+     * 用户在主页领取优惠券
+     * @param Request $request
+     * @return \think\response\Json
+     */
+    public function get(Request $request){
+        $data = $request->param();
+        $rule = ['username'=>'require','coupon_id'=>'require|number'];
+        $res = $this->validate($data,$rule);
+        if($res !== true){
+            $this->error('用户名或优惠券ID有误');
+        }
+        return json((new Coupon())->getCoupon($data));
+    }
+
+    /**
+     * 查询我的优惠券
+     * @param Request $request
+     * @return \think\response\Json
+     */
+    public function my(Request $request){
+        $data = $request->param();
+        $rule = ['username'=>'require'];
+        $res = $this->validate($data,$rule);
+        if($res !== true){
+            $this->error('用户名有误');
+        }
+        return json(Coupon::getMyCoupon($data));
+    }
 }

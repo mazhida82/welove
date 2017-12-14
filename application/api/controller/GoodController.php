@@ -21,9 +21,24 @@ class GoodController extends BaseController {
     }
 
 
-    public function goodsList(Request $request){
+    public function glist(Request $request){
         $data = $request->param();
+        $rule = ['cate_id'=>'require|number'];
+        $res = $this->validate($data, $rule);
+        if ($res !== true) {
+            return json(['code' => __LINE__, 'msg' => '没有分类ID']);
+        }
         return json(Good::getGoodPage($data));
+    }
+
+    public function info(Request $request){
+        $data = $request->param();
+        $rule = ['good_id'=>'require|number'];
+        $res = $this->validate($data,$rule);
+        if ($res !== true) {
+            return json(['code' => __LINE__, 'msg' => '没有商品ID或商品ID格式错误']);
+        }
+        return json(Good::getInfo($data));
     }
 //    public function collect(Request $request){
 //        $data = $request->param();

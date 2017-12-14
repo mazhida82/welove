@@ -3,9 +3,10 @@
 namespace app\api\model;
 
 use think\Model;
-use app\api\model\GoodAttr;
-use app\api\model\Collect;
-
+use think\Request;
+use \think\Collection;
+use app\api\model\Base;
+use app\api\model\Property;
 class Good extends Base {
 
     public function getStAttr($value) {
@@ -31,7 +32,7 @@ class Good extends Base {
     }
 
     public static function getGoodPage($data=[]){
-        $where = ['wl_good.st'=>1];
+        $where = ['wl_good.st'=>1,'cate_id'=>$data['cate_id']];
         $order = 'wl_good.sort asc'; //默认按照排序字段来排序
         /*if(!emtpy($data['paixu']) && $data['paixu']=='sales'){
             $order = 'sales desc';
@@ -45,8 +46,31 @@ class Good extends Base {
         if(!emtpy($data['paixu']) && $data['paixu']=='orderByExpen'){
             $order = 'price desc';//按照价格  倒序
         }*/
-        $list = self::where($where)->join('wl_cate','wl_good.cate_id = wl_cate.id')->order($order)->paginate(8);
+        $list = self::where($where)->order($order)->paginate(8);
         return ['code'=>0,'data'=>$list];
+    }
+
+    public static function getInfo($data){
+        $id = $data['good_id'];
+        $list = self::where(['id'=>$id])->select();
+        if(empty($list)){
+            return ['code'=>__LINE__,'msg'=>'没有此商品'];
+        }
+        if($list[0]->property_st==1){
+            $property = Property::where(['good_id'=>$list[0]->id,'st'=>1])->select();
+            $arr = $list[0]->data;
+            unset($arr['price']);
+            foreach($property as $k=>$v){
+                $array['price'] = $v->price;
+                $array['value'] = $v->value;
+                $ar = array_merge($arr,$array);
+                $new[$k]=$ar;
+            }
+            return ['code'=>0,'data'=>$new];
+        }else{
+            return ['code'=>0,'data'=>$list];
+        }
+
     }
 //    //using zyg
 //    public static function findOne($data){

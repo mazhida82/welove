@@ -15,7 +15,7 @@ class Address extends Base{
 		if ( is_array( $user_id ) ) {
 			return $user_id;
 		}
-		$list_ = self::where( ['user_id' => $user_id , 'address.st' => 1] )->field( 'id,truename,mobile,is_default,pcd,info' )->order( 'address.is_default desc' )->paginate( 5 );
+		$list_ = self::where( ['user_id' => $user_id , 'wl_address.st' => 1] )->field( 'id,truename,mobile,is_default,pcd,info' )->order( 'wl_address.is_default desc' )->paginate( 5 );
 		if ( count( $list_ ) == 0 ) {
 			return ['code' => __LINE__ , 'msg' => '没数据啊!'];
 		}
@@ -89,9 +89,9 @@ class Address extends Base{
 		}
 		unset( $data['username'] );
 		if ( $this->save( $data , ['id' => $data['id']] ) ) {
-			return ['code' => 0 , 'msg' => '添加成功' , 'data' => $this->id];
+			return ['code' => 0 , 'msg' => '修改成功' , 'data' => $this->id];
 		} else {
-			return ['code' => __LINE__ , '添加失败'];
+			return ['code' => __LINE__ , '修改失败'];
 		}
 
 	}
