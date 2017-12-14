@@ -29,6 +29,18 @@ class CateController extends BaseController {
         if($res!==true){
             $this->error($res);
         }
+        $file = $request->file('img');
+
+        if (empty($file)) {
+            $this->error('请上传图片或检查图片大小！');
+        }
+        $size = $file->getSize();
+        if ($size > config('upload_size')) {
+            $this->error('图片大小超过限定！');
+        }
+        $path_name = 'cate';
+        $arr = $this->dealImg($file, $path_name);
+        $data['img'] = $arr['save_url_path'];
         // dump($data);exit;
         if((new Cate)->save($data)){
             $this->success('添加成功','index','',1);
@@ -53,6 +65,18 @@ class CateController extends BaseController {
         $res = $this->validate($data,'CateValidate');
         if($res!==true){
             $this->error($res);
+        }
+        $file = $request->file('img');
+        $row_ = $this->findById($data['id'], new Cate());
+        if (!empty($file)) {
+            $path_name = 'cate';
+            $size = $file->getSize();
+            if ($size > config('upload_size')) {
+                $this->error('图片大小超过限定！');
+            }
+            $this->deleteImg($row_->img);
+            $arr = $this->dealImg($file, $path_name);
+            $data['img'] = $arr['save_url_path'];
         }
         if($this->saveById($data['id'],new Cate(),$data)){
             $this->success('修改成功', $referer, '', 1);

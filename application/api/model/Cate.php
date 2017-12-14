@@ -16,11 +16,19 @@ class Cate extends model {
      */
     public static function getList(){
         $list_first = self::where(['pid'=>0,'st'=>1])->order('sort asc')->select();
-        foreach($list_first as $k=>$v){
-            $list_child = self::where(['pid'=>$v->id,'st'=>1])->order('sort asc')->select();
-            $list_first[$k]['childs'] = $list_child;
-        }
+//        foreach($list_first as $k=>$v){
+//            $list_child = self::where(['pid'=>$v->id,'st'=>1])->order('sort asc')->select();
+//            $list_first[$k]['childs'] = $list_child;
+//        }
         return ['code'=>0,'data'=>$list_first];
+    }
+
+    /**
+     * 获取二级分类
+     */
+    public static function getSecond($data){
+        $list_second = self::where(['pid'=>$data['pid'],'st'=>1])->order('sort asc')->select();
+        return ['code'=>0,'data'=>$list_second];
     }
 
 

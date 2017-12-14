@@ -8,7 +8,7 @@
 </style>
 
 <!--弹出添加用户窗口-->
-<form class="form-horizontal" action="{:url($act)}" method="post" >
+<form class="form-horizontal" action="{:url($act)}" method="post" enctype="multipart/form-data">
     <?php if($act=='update'){?>
         <input type="hidden" name="id" value="{$row_->id}">
         <input type="hidden" name="referer" value="{$referer}">
@@ -33,6 +33,13 @@
                         <div class="col-xs-8 ">
                             <input type="text" class="form-control input-sm duiqi" name='sort' value="{$row_->sort}" id=""
                                    placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sOrd" class="col-xs-3 control-label"><span style="color:red;">*&nbsp;&nbsp;</span>列表图：</label>
+                        <div class="col-xs-4 ">
+                            <img src="__IMGURL__{$row_->img}" alt="没有上传图片" width="188"/>
+                            <input type="file" title='' class="form-control  duiqi" id="sOrd" name="img" placeholder=""><span style="color:red">尺寸要求（750*400），大小不超过<?php echo floor(config('upload_size')/1024/1024);?>M。不上传表示不改</span>
                         </div>
                     </div>
                 </div>

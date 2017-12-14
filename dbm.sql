@@ -33,6 +33,10 @@ DROP COLUMN `shop_id`;
 ALTER TABLE `wl_cart_good`
 DROP COLUMN `shop_id`;
 
+ALTER TABLE `wl_cate`
+ADD COLUMN `img`  varchar(255) NULL AFTER `pid`;
+
+
 
 
 

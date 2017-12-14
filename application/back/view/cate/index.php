@@ -52,6 +52,9 @@
                 上级名称
             </div>
             <div class="col-xs-1">
+                列表图
+            </div>
+            <div class="col-xs-1">
                 排序
             </div>
             <div class="col-xs-2">
@@ -74,6 +77,11 @@
                         </div>
                         <div class="col-xs-2" >
                             {$row_->getName($row_->pid)}
+                        </div>
+                        <div class="col-xs-1">
+                            <a href="__IMGURL__{$row_->img}" target="_blank">
+                                <img src="__IMGURL__{$row_->img}" style="height:65px;max-width:175px;" alt="没有">
+                            </a>
                         </div>
                         <div class="col-xs-1">
                             {$row_->sort}
@@ -102,6 +110,11 @@
                             </div>
                             <div class="col-xs-2 ">
                                 {$row_->getName($row_child->pid)}
+                            </div>
+                            <div class="col-xs-1">
+                                <a href="__IMGURL__{$row_child->img}" target="_blank">
+                                    <img src="__IMGURL__{$row_child->img}" style="height:65px;max-width:175px;" alt="没有">
+                                </a>
                             </div>
                             <div class="col-xs-1">
                                 {$row_child->sort}
