@@ -52,13 +52,14 @@ class Good extends Base {
 
     public static function getInfo($data){
         $id = $data['good_id'];
-        $list = self::where(['id'=>$id])->select();
-        if(empty($list)){
+        $list = self::where(['id'=>$id])->find();
+//        dump($list->data['property_st']);exit;
+        if(empty($list->data)){
             return ['code'=>__LINE__,'msg'=>'没有此商品'];
         }
-        if($list[0]->property_st==1){
-            $property = Property::where(['good_id'=>$list[0]->id,'st'=>1])->select();
-            $arr = $list[0]->data;
+        if($list->data['property_st']==1){
+            $property = Property::where(['good_id'=>$list->data['id'],'st'=>1])->select();
+            $arr = $list->data;
             foreach($property as $k=>$v){
                 $arr['property'][$k] = $v->data;
 //                $array['price'] = $v->price;
