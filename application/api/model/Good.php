@@ -34,13 +34,14 @@ class Good extends Base {
     public static function getGoodPage($data=[]){
         $where = ['wl_good.st'=>1,'cate_id'=>$data['cate_id']];
         $order = 'wl_good.sort asc'; //默认按照排序字段来排序
-        if(!emtpy($data['paixu']) && $data['paixu']=='sales'){
-            $order = 'wl_good.sales desc';
+
+        if ( !empty( $data['paixu'] ) && $data['paixu'] == 'sales' ) {
+            $order = "wl_good.sales desc";
         }
-        if(!emtpy($data['paixu']) && $data['paixu']=='new'){
-            $order = 'wl_good.create_time desc';//按照新品排序
+        if ( !empty( $data['paixu'] ) && $data['paixu'] == 'news' ) {
+            $order = "wl_good.create_time desc";
         }
-        if(!emtpy($data['paixu']) && $data['paixu']=='price'){
+        if(!empty($data['paixu']) && $data['paixu']=='price'){
             $order = 'wl_good.price asc';//按照价格  正序
         }
 //        if(!emtpy($data['paixu']) && $data['paixu']=='orderByExpen'){
