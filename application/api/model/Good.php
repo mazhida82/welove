@@ -34,18 +34,18 @@ class Good extends Base {
     public static function getGoodPage($data=[]){
         $where = ['wl_good.st'=>1,'cate_id'=>$data['cate_id']];
         $order = 'wl_good.sort asc'; //默认按照排序字段来排序
-        /*if(!emtpy($data['paixu']) && $data['paixu']=='sales'){
+        if(!emtpy($data['paixu']) && $data['paixu']=='sales'){
             $order = 'sales desc';
         }
         if(!emtpy($data['paixu']) && $data['paixu']=='new'){
             $order = 'create_time desc';//按照新品排序
         }
-        if(!emtpy($data['paixu']) && $data['paixu']=='orderByCheap'){
-            $order = 'price desc';//按照价格  正序
+        if(!emtpy($data['paixu']) && $data['paixu']=='price'){
+            $order = 'price asc';//按照价格  正序
         }
-        if(!emtpy($data['paixu']) && $data['paixu']=='orderByExpen'){
-            $order = 'price desc';//按照价格  倒序
-        }*/
+//        if(!emtpy($data['paixu']) && $data['paixu']=='orderByExpen'){
+//            $order = 'price desc';//按照价格  倒序
+//        }
         $list = self::where($where)->order($order)->paginate(8);
         return ['code'=>0,'data'=>$list];
     }
