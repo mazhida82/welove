@@ -133,8 +133,9 @@ class Cart extends Base {
             }
             //有规格
                 $property = self::getById($data['property_id'], new Property());
-                $row_cart_good = CartGood::where(['cart_id'=>$data['cart_id'],'good_id'=>$data['good_id'],'property_id'=>1,'st'=>1])->find();
 
+                $row_cart_good = CartGood::where(['cart_id'=>$data['cart_id'],'good_id'=>$data['good_id'],'property_id'=>$data['property_id'],'st'=>1])->find();
+//            dump($row_cart_good);exit;
                 $minus_price = $row_cart_good->num * $property->price;
 
                 $row_cart_good->st = 0;
