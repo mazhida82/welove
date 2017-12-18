@@ -18,6 +18,9 @@ class Cart extends Base {
      * @return array|mixed
      */
     public function addCart($data) {
+        if(!array_key_exists('property_id',$data)){
+            $data['property_id'] = 0;
+        }
         $user_id = User::getUserIdByName($data['username']);
         if (is_array($user_id)) {
             return $user_id;
@@ -30,7 +33,7 @@ class Cart extends Base {
 //        dump($row_cart);exit;
         if (!$row_cart) {//没有此商家的购物车
             //无规格
-            if($data['property_id'] == null ){
+            if($data['property_id'] == 0 ){
                 $data_cart['user_id'] = $user_id;
                 $data_cart['sum_price'] = $row_good->price * $data['num'];
                 $this->save($data_cart);
@@ -47,7 +50,7 @@ class Cart extends Base {
             }
         }
         //无规格
-        if($data['property_id'] == null ){
+        if($data['property_id'] == 0 ){
             $row_cart->sum_price += $row_good->price * $data['num'];
             $row_cart->st = 1;
             $row_cart->save();
