@@ -44,6 +44,13 @@ ADD COLUMN `property_id`  int(11) NOT NULL AFTER `st`;
 ALTER TABLE `wl_cart_good`
 MODIFY COLUMN `property_id`  int(11) NOT NULL DEFAULT 0 AFTER `st`;
 
+-- 二〇一七年十二月十八日 18:02:22
+ALTER TABLE `wl_coupon`
+MODIFY COLUMN `start_time`  int(11) NULL AFTER `name`,
+MODIFY COLUMN `end_time`  int(11) NULL AFTER `start_time`;
+
+
+
 
 
 
