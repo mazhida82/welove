@@ -27,7 +27,7 @@ class CartController extends BaseController {
     public function save(Request $request) {
         $data = $request->param();
         //dump( $data);exit;
-        $rule = ['username'=>'require','good_id'=>'require|number','num'=>'require|number','property_id'=>'require|number'];
+        $rule = ['username'=>'require','good_id'=>'require|number','num'=>'require|number'];
         $res = $this->validate($data,$rule );
         //dump( $res);exit;
         if($res !== true){

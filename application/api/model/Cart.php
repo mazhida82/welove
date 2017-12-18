@@ -30,11 +30,11 @@ class Cart extends Base {
 //        dump($row_cart);exit;
         if (!$row_cart) {//没有此商家的购物车
             //无规格
-            if($data['property_id'] == 0 ){
+            if($data['property_id'] == '' ){
                 $data_cart['user_id'] = $user_id;
                 $data_cart['sum_price'] = $row_good->price * $data['num'];
                 $this->save($data_cart);
-                $data_good = ['cart_id' => $this->id, 'good_id' => $row_good->id,  'num' => $data['num'],'property_id'=>$data['property_id']];
+                $data_good = ['cart_id' => $this->id, 'good_id' => $row_good->id,  'num' => $data['num'],'property_id'=>0];
                 return (new CartGood)->addNoSPEC($data_good);
             }else{
             //有规格
@@ -47,11 +47,11 @@ class Cart extends Base {
             }
         }
         //无规格
-        if($data['property_id'] == 0 ){
+        if($data['property_id'] == '' ){
             $row_cart->sum_price += $row_good->price * $data['num'];
             $row_cart->st = 1;
             $row_cart->save();
-            $data_good = ['cart_id' => $row_cart->id, 'good_id' => $row_good->id, 'num' => $data['num'],'property_id'=>$data['property_id']];
+            $data_good = ['cart_id' => $row_cart->id, 'good_id' => $row_good->id, 'num' => $data['num'],'property_id'=>0];
             return (new CartGood)->addNoSPEC($data_good);
         }else{
         //有规格
