@@ -84,9 +84,13 @@ class Cart extends Base {
         $sum_price_all = 0;
         if(!empty($list_cart->data)){
             $list_good = CartGood::getGoods($list_cart->data['id']);
-//            foreach($list_good as $k=>$v){
-//
-//            }
+            foreach($list_good as $k=>$v){
+                if($v['property_st'] != 0){
+                    $property = (new Property())->where(['id'=>$v['property_id']])->find();
+                    $v['price'] = $property->price;
+                    $v['property'] = $property->value;
+                }
+            }
             $sum_price_all += $list_cart->data['sum_price'];
         }
         return ['code' => 0, 'msg' => '获取购物车数据成功', 'sum_price_all' => $sum_price_all, 'data' => $list_good];
