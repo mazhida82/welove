@@ -11,23 +11,19 @@ class CartGood extends model {
         return $status[$value];
     }
 
-    public function getTypeAttr($value) {
-        $status = [1 => '行业', 2 => '百科'];
-        return $status[$value];
-    }
-    /*
-      * useing
-      * */
-
-    public function addGood($data) {
-        $row_ = self::where(['good_id' => $data['good_id'], 'st' => 1])->find();
+    /**
+     * 无规格
+     * @param $data
+     * @return array
+     */
+    public function addNoSPEC($data){
+        $row_ = self::where(['good_id'=>$data['good_id'],'st'=>1])->find();
         if (!$row_) {
             if (!$this->save($data)) {
                 return ['code' => __LINE__, 'msg' => '添加失败'];
             }
             return ['code' => 0, 'msg' => '添加成功'];
         }
-        //dump($row_);exit;
         $row_->num += $data['num'];
         if (!$row_->save()) {
             return ['code' => __LINE__, 'msg' => '修改失败'];
@@ -35,11 +31,44 @@ class CartGood extends model {
         return ['code' => 0, 'msg' => '修改成功'];
     }
 
+    /**
+     * 有规格
+     * @param $data
+     */
+    public function addHvSPEC($data){
+//        dump($data);exit;
+        $row = self::where(['good_id'=>$data['good_id'],'st'=>1])->find();
+        //商品购物车无商品
+        if(!$row){
+            if (!$this->save($data)) {
+                return ['code' => __LINE__, 'msg' => '添加失败'];
+            }
+            return ['code' => 0, 'msg' => '添加成功'];
+        }
+        //有商品的情况
+        $res = self::where(['good_id'=>$data['good_id'],'st'=>1,'property_id'=>$data['property_id']])->find();
+        //规格id不一致
+        if(!$res){
+            if (!$this->save($data)) {
+                return ['code' => __LINE__, 'msg' => '添加失败'];
+            }
+            return ['code' => 0, 'msg' => '添加成功'];
+        }
+        //规格id一致
+        $res->num += $data['num'];
+        if (!$res->save()) {
+            return ['code' => __LINE__, 'msg' => '修改失败'];
+        }
+        return ['code' => 0, 'msg' => '修改成功'];
+    }
+
+
+
     /*
      * useing
      * */
-    public static function getGoodsByShop($shop_id) {
-        $list_ = self::where(['cart_good.st'=>1,'good.st'=>1])->join('good','cart_good.good_id=good.id')->field('cart_good.id cart_good_id,cart_id,good_id,num,good.name good_name,good.img,good.price')->select();
+    public static function getGoodsByGood($good_id) {
+        $list_ = self::where(['wl_cart_good.st'=>1,'wl_good.st'=>1])->join('good','wl_cart_good.good_id=wl_good.id')->select();
         return $list_;
     }
 
