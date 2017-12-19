@@ -26,9 +26,6 @@ class Coupon extends Base{
         $list = UserCoupon::getList($data);
         if(!$list){
             $res = (new UserCoupon())->save($data);
-            if(!$res){
-                return ['code'=>__LINE__,'msg'=>'领取失败'];
-            }
             return ['code'=>0,'msg'=>'领取成功'];
         }else{
             return ['code'=>__LINE__,'msg'=>'请勿重新领取'];
