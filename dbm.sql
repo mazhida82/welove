@@ -49,6 +49,18 @@ ALTER TABLE `wl_coupon`
 MODIFY COLUMN `start_time`  int(11) NULL AFTER `name`,
 MODIFY COLUMN `end_time`  int(11) NULL AFTER `start_time`;
 
+-- 2017年12月19日 11:30:59
+ALTER TABLE `wl_order_good`
+DROP COLUMN `unit`;
+DROP COLUMN `shop_id`;
+ALTER TABLE `wl_order_good`
+ADD COLUMN `property_id`  int NOT NULL DEFAULT 0 AFTER `update_time`;
+
+ALTER TABLE `wl_order`
+ADD COLUMN `coupon_id`  int NOT NULL DEFAULT 0 AFTER `type`;
+
+
+
 
 
 

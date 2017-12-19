@@ -17,7 +17,7 @@ class UserCoupon extends Base{
     }
 
     public static function getListByUser($data){
-        $list = self::where(['user_id'=>$data,'st'=>'1'])->join('coupon','wl_users_coupon.coupon_id=coupon.id')->order('end_time asc')->paginate(8);
+        $list = self::where(['user_id'=>$data,'st'=>'1'])->join('coupon','wl_users_coupon.coupon_id=coupon.id')->order('end_time asc')->select();
         return $list;
     }
 }
