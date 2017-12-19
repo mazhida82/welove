@@ -9,7 +9,7 @@ class Coupon extends Base{
      * @return \think\response\Json
      */
     public static function getList(){
-        $list = self::where(['status'=>1,'start_time'=>['lt',time()],'end_time'=>['gt',time()]])->order('solution asc')->select();
+        $list = self::where(['status'=>1])->order('solution asc')->select();
 //        dump($list);exit;
         return ['code','data'=>$list];
     }
