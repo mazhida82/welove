@@ -40,7 +40,7 @@ class Coupon extends Base{
     public static function getMyCoupon($data){
         $user_id = User::getUserIdByName($data['username']);
         $res = UserCoupon::getListByUser($user_id);
-        if($res->isEmpty()){
+        if(empty($res)){
             return ['code'=>__LINE__,'msg'=>'暂无优惠券'];
         }
         return ['code'=>0,'data'=>$res];
