@@ -24,7 +24,7 @@ class Coupon extends Base{
         unset($data['username']);
         $data['user_id'] = $user_id;
         $list = UserCoupon::getList($data);
-        if(!$list){
+        if(empty($list->data)){
             $res = (new UserCoupon())->save($data);
             return ['code'=>0,'msg'=>'领取成功'];
         }else{
