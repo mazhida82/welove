@@ -48,7 +48,7 @@ class CouponController extends BaseController{
 //        $path_name = 'coupon';
 //        $arr = $this->dealImg($file, $path_name);
 //        $data['img'] = $arr['save_url_path'];
-
+        $data['result'] = '满'.$data['rule'].'元减'.$data['solution'].'元';
         (new Coupon())->save($data);
         $this->success('添加成功', 'index', '', 1);
     }
@@ -73,7 +73,7 @@ class CouponController extends BaseController{
 //        $data['start_time'] = strtotime($data['start_time']);
 //        $data['end_time'] = strtotime($data['end_time']);
         unset($data['referer']);
-
+        $data['result'] = '满'.$data['rule'].'元减'.$data['solution'].'元';
 //        $file = $request->file('img');
         $row_ = $this->findById($data['id'], new Coupon());
 //        if (!empty($file)) {

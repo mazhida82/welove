@@ -59,6 +59,9 @@ ADD COLUMN `property_id`  int NOT NULL DEFAULT 0 AFTER `update_time`;
 ALTER TABLE `wl_order`
 ADD COLUMN `coupon_id`  int NOT NULL DEFAULT 0 AFTER `type`;
 
+ALTER TABLE `wl_coupon`
+ADD COLUMN `result`  varchar(255) NOT NULL AFTER `img`;
+
 
 
 
