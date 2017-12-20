@@ -22,7 +22,7 @@ class PayController extends BaseController {
     public function pay_now(Request $request) {
 
 //        dump($request->domain());
-        $rules = ['username' => 'require', 'order_id' => 'require|number','type_'=>'require'];
+        $rules = ['username' => 'require', 'order_id' => 'require|number'];
 		$data = $request->param();
         $res = $this->validate($data, $rules);
         if ($res !== true) {

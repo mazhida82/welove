@@ -15,8 +15,8 @@ return [
     // +----------------------------------------------------------------------
     'wx_appid'=>'wx92defd716369fb60',
     'wx_appsecret'=>'09dc8bb9780efd2fce715a9940e3ba78',
-    // 'wx_mchid'=>'1482422632',
-    //'wx_mchkey'=>'weilaihexun12138weilaihexun12138',
+    'wx_mchid'=>'1482422632',
+    'wx_mchkey'=>'weilaihexun12138weilaihexun12138',
     'wx_spbill_create_ip'=>'211.149.154.103',
     'site_name' => 'welove',
     //上传图片限制大小
