@@ -35,10 +35,10 @@ class Order extends Base{
                 if($n['property_id'] != 0 ){
                     $property = (new Property())->where(['id'=>$n['property_id'],'st'=>1])->find();
                     $n['property'] = $property -> value;
+                    $list_order[$k]['total_num'] += $n['num'];
                 }
             }
             $list_order [$k]['order_good'] = $good;
-
         }
 //        dump($list_order);exit;
         if ( empty($list_order)) {
