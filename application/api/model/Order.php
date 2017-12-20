@@ -31,6 +31,7 @@ class Order extends Base{
         $list_order = self::where( $where )->where( $where2 )->order( 'create_time desc' )->select();
         foreach ($list_order as $k => $v) {
             $good = (new OrderGood()) -> where([ 'order_id' => $v['id'] ]) ->select();
+            $list_order[$k]['total_num'] = 0;
             foreach ($good as $m => $n){
                 if($n['property_id'] != 0 ){
                     $property = (new Property())->where(['id'=>$n['property_id'],'st'=>1])->find();
