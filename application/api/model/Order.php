@@ -15,6 +15,9 @@ class Order extends Base{
      * @return array|mixed
      */
     public function addOrder($data){
+        if(!array_key_exists('coupon_id',$data)){
+            $data['coupon_id'] = 0;
+        }
         $user_id = User::getUserIdByName( $data['username'] );
         if ( is_array( $user_id ) ) {
             return $user_id;

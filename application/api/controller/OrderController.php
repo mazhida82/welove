@@ -12,7 +12,6 @@ class OrderController extends BaseController{
             'GoodList'=>'require',
             'sum_price_all'=>'require|float',
             'address_id' => 'require|number',
-            'coupon_id'=>'require|number'
         ];
         $res = $this->validate($data, $rules);
         if (true !== $res) {
