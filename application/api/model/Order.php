@@ -27,14 +27,13 @@ class Order extends Base{
         }
         $where = ['wl_order.st' => ['neq' , 0] , 'user_id' => $user_id];
         $where2 = ['wl_order.st' => ['neq' , self::ORDER_ST_USER_DELETE]];
-        $field = 'wl_order.*,wl_order_good.name good_name,wl_order_good.price good_price,good_id,wl_order_good.property_id';
+        $field = 'wl_order.*,wl_order_good.name good_name,wl_order_good.price good_price,good_id,wl_order_good.property_id,num,img';
         $list_order = self::where( $where )->where( $where2 )->join( 'wl_order_good' , 'wl_order_good.order_id=wl_order.id' )->field( $field )->order( 'create_time desc' )->select();
 //        dump($list_order);exit;
         if ( empty($list_order)) {
             return ['code' => __LINE__ , 'msg' => '订单不存在'];
         }
         return ['code' => 0 , 'msg' => '获取订单列表成功' , 'data' => $list_order];
-
     }
 
     /**
