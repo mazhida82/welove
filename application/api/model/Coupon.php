@@ -46,4 +46,15 @@ class Coupon extends Base{
         return ['code'=>0,'data'=>$res];
     }
 
+    public static function getUsable($data){
+        $user_id = User::getUserIdByName($data['username']);
+        unset($data['username']);
+        $data['user_id'] = $user_id;
+        $res = UserCoupon::getListByPriceUser($data);
+        if(empty($res)){
+            return ['code'=>__LINE__,'msg'=>'暂无可使用的优惠券'];
+        }
+        return ['code'=>0,'data'=>$res];
+    }
+
 }

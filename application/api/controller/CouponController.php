@@ -43,4 +43,14 @@ class CouponController extends BaseController
         }
         return json(Coupon::getMyCoupon($data));
     }
+
+    public function usable(Request $request){
+        $data = $request->param();
+        $rule = ['username'=>'require','sum_price_all'=>'require|float'];
+        $res = $this->validate($data,$rule);
+        if($res !== true){
+            $this->error('用户名或总价有传值错误');
+        }
+        return json(Coupon::getUsable($data));
+    }
 }
