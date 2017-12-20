@@ -5,10 +5,60 @@ use think\Db;
 use think\Model;
 
 class Order extends Base{
-    const ORDER_ST_UNPAID = 1;//订单待支付
+    const ORDER_ST_UNPAID       = 1;//订单待支付
+    const ORDER_ST_PAID         = 2;//订单已支付
+    const ORDER_ST_REFUNDED     = 3;//订单已退款
+    const ORDER_ST_USER_CANCEL  = 4;//用户取消订单
+    const ORDER_ST_USER_DELETE  = 5;//用户删除订单
+    const ORDER_ST_USER_REFUND  = 6;//用户退款订单
+    const ORDER_ST_ADMIN_DELETE = 0;//管理员删除订单
+    const GOOD_ST_OVERHANG      = 1;//商品待发货
+    const GOOT_ST_RECEIVED     = 2;//商品已收货
 
+    /**
+     * 更改订单为已支付状态
+     * @param $data
+     * @return array
+     */
+    public static function updatePaySt($data){
+        $row_order = self::find([ 'id' => $data['order_id'] ]);
+        if ( !$row_order ) {
+            return ['code' => __LINE__ , 'msg' => '订单不存在'];
+        }
+        $row_order->st = self::ORDER_ST_PAID;
+        if ( !$row_order->save() ) {
+            return ['code' => 0 , 'msg' => '支付状态失败'];
+        }
+        //给订单中的商品增加销量
+        \app\api\model\OrderGood::increseSales( $row_order->id );
 
-    const GOOD_ST_OVERHANG = 1;//商品待发货
+        return [ 'code' => 0 , 'msg' => '修改成功' ];
+    }
+    /**
+     * 更改订单状态,商品物流状态
+     * @param $data
+     * @return array
+     */
+    public static function updateSt($data){
+        $row_ = self::find( ['id' => $data['order_id']] );
+        if ( !$row_ ) {
+            return ['code' => __LINE__ , 'msg' => '订单不存在'];
+        }
+        if ( $data['st'] == 'cancel' ) {
+            $row_->st = self::ORDER_ST_USER_CANCEL;
+        } elseif ( $data['st'] == 'paid' ) {
+            $row_->st = self::ORDER_ST_PAID;
+        } elseif ( $data['st'] == 'taken' ) {
+            $row_->goodst = self::GOOT_ST_RECEIVED;//已收货
+            OrderGood::where( ['order_id' => $data['order_id']] )->update( ['st' => OrderGood::ST_TAKEN] );
+        } elseif ( $data['st'] == 'delByUser' ) {
+            $row_->st = self::ORDER_ST_USER_DELETE;
+        }elseif ( $data['st'] == 'refundByUser' ) {
+            $row_->st = self::ORDER_ST_USER_REFUND;
+        }
+        $row_->save();
+        return ['code' => 0 , 'msg' => '订单状态更改'];
+    }
     /**
      * 添加商品订单
      * @param $data
