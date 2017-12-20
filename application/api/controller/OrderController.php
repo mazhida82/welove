@@ -4,6 +4,19 @@ use app\api\model\Order;
 use think\Request;
 
 class OrderController extends BaseController{
+    /*
+     * 取用户订单列表
+     *
+     * */
+    public function index(Request $request) {
+        $data = $request->param();
+        $rule = ['username' => 'require'];
+        $res = $this->validate($data, $rule);
+        if (true !== $res) {
+            return json(['code' => __LINE__, 'msg' => $res]);
+        }
+        return json(Order::getMyOrders($data));
+    }
 
     /**
      * 用户结算生成订单

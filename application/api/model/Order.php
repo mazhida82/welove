@@ -16,6 +16,28 @@ class Order extends Base{
     const GOOT_ST_RECEIVED     = 2;//商品已收货
 
     /**
+     * 获取用户订单列表
+     * @param $data
+     * @return array|mixed
+     */
+    public static function getMyOrders($data){
+        $user_id = User::getUserIdByName( $data['username'] );
+        if ( is_array( $user_id ) ) {
+            return $user_id;
+        }
+        $where = ['wl_order.st' => ['neq' , 0] , 'user_id' => $user_id];
+        $where2 = ['wl_order.st' => ['neq' , self::ORDER_ST_USER_DELETE]];
+        $field = 'wl_order.*,wl_order_good.name good_name,wl_order_good.price good_price,good_id,property_id';
+        $list_order = self::where( $where )->where( $where2 )->join( 'wl_order_good' , 'wl_order_good.order_id=wl_order.id' )->field( $field )->order( 'create_time desc' )->select();
+//        dump($list_order);exit;
+        if ( empty($list_order)) {
+            return ['code' => __LINE__ , 'msg' => '订单不存在'];
+        }
+        return ['code' => 0 , 'msg' => '获取订单列表成功' , 'data' => $list_order];
+
+    }
+
+    /**
      * 更改订单为已支付状态
      * @param $data
      * @return array
