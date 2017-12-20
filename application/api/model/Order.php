@@ -15,6 +15,10 @@ class Order extends Base{
     const GOOD_ST_OVERHANG      = 1;//商品待发货
     const GOOT_ST_RECEIVED     = 2;//商品已收货
 
+    public function getStAttr($value){
+        $status = ['0' => '管理员删除' , 1 => '待支付' , 2 => '已支付' , 3 => '已退款', 4 => '用户取消' , 5 => '用户删除',6=>'申请退款'];
+        return $status[$value];
+    }
     /**
      * 获取用户订单列表
      * @param $data
