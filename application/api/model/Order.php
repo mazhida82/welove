@@ -30,7 +30,12 @@ class Order extends Base{
         $field = 'wl_order.*,wl_order_good.name good_name,wl_order_good.price good_price,good_id,wl_order_good.property_id,num,img';
         $list_order = self::where( $where )->where( $where2 )->order( 'create_time desc' )->select();
         foreach ($list_order as $k => $v) {
+            if($v['property_id'] != 0 ){
+                $property = (new Property())->where(['id'=>$v['property_id'],'st'=>1])->find();
+                $v['property'] = $property -> value;
+            }
             $list_order [$k]['order_good'] = (new OrderGood()) -> where([ 'order_id' => $v['id'] ]) ->select();
+
         }
 //        dump($list_order);exit;
         if ( empty($list_order)) {
