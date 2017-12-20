@@ -62,6 +62,9 @@ ADD COLUMN `coupon_id`  int NOT NULL DEFAULT 0 AFTER `type`;
 ALTER TABLE `wl_coupon`
 ADD COLUMN `result`  varchar(255) NOT NULL AFTER `img`;
 
+ALTER TABLE `wl_order`
+ADD COLUMN `notes`  varchar(255) NULL COMMENT '备注' AFTER `coupon_id`;
+
 
 
 

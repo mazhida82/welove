@@ -50,6 +50,7 @@ class Order extends Base{
             'coupon_id'     => $data['coupon_id'] ,
             'create_time'  => time() ,
             'update_time'  => time() ,
+            'notes'         => $data['notes'] ,
         ];
         if ( !$new_order_id = $this->insertGetId( $data_order ) ) {
             return ['code' => __LINE__ , 'msg' => '添加失败'];
