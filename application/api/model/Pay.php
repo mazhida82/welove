@@ -239,9 +239,7 @@ class Pay extends Base {
         return $result;
     }
 
-    public static function makeRefundNo() {
-        return date('mdHis', time()) . mt_rand(10, 99) .'_refund';
-    }
+
 
 //签名 $data要先排好顺序
     private function sign($data) {

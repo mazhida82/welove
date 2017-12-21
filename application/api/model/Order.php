@@ -172,6 +172,9 @@ class Order extends Base{
     public function makeTradeNo($username){
         return date( 'mdHis' , time() ) .mt_rand(1,99). mt_rand( 10 , 999 ) . '_' . $username;
     }
+    public static function makeRefundNo() {
+        return date('mdHis', time()) . mt_rand(10, 99) .'_refund';
+    }
 
     public static function getOrder($data){
         $order_id = $data['order_id'];
