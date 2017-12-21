@@ -208,7 +208,6 @@ class Pay extends Base {
         $url = 'https://api.mch.weixin.qq.com/secapi/pay/refund';
         $xml = $this->http_post($url, $post_xml);
         $array = $this->xml($xml);//全要大写
-        dump($array);
         if ($array['RETURN_CODE'] == 'SUCCESS') {
             if ($array['RESULT_CODE'] == 'SUCCESS') {
                 $row_order->st = Order::ORDER_ST_REFUNDED;
@@ -290,7 +289,7 @@ class Pay extends Base {
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 
-        curl_setopt($ch, CURLOPT_SSLCERT, getcwd() . '/../all_zhuangxiu.pem');
+        curl_setopt($ch, CURLOPT_SSLCERT, getcwd() . '/../all_welai.pem');
 
         if (count($aHeader) >= 1) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $aHeader);
