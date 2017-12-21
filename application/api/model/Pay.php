@@ -169,7 +169,7 @@ class Pay extends Base {
         if (!$row_order) {
             return ['code' => __LINE__, 'msg' => '订单在！'];
         }
-        if ($row_order->st == Dingdan::ORDER_ST_REFUNDED) {
+        if ($row_order->st == Order::ORDER_ST_REFUNDED) {
             return ['code' => __LINE__, 'msg' => '订单已退过款了！'];
         }
         if(empty($row_order->refund_no)){
