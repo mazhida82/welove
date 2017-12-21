@@ -289,7 +289,7 @@ class Pay extends Base {
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 
-        curl_setopt($ch, CURLOPT_SSLCERT, getcwd() . '/../all_welai.pem');
+        curl_setopt($ch, CURLOPT_SSLCERT, getcwd() . '/../all_weilai.pem');
 
         if (count($aHeader) >= 1) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $aHeader);
