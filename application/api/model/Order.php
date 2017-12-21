@@ -11,12 +11,13 @@ class Order extends Base{
     const ORDER_ST_USER_CANCEL  = 4;//用户取消订单
     const ORDER_ST_USER_DELETE  = 5;//用户删除订单
     const ORDER_ST_USER_REFUND  = 6;//用户退款订单
+    const ORDER_ST_USER_FAST_REFUND = 7;//订单未发货,用户快速退款
     const ORDER_ST_ADMIN_DELETE = 0;//管理员删除订单
     const GOOD_ST_OVERHANG      = 1;//商品待发货
     const GOOT_ST_RECEIVED     = 3;//商品已收货
 
     public function getStAttr($value){
-        $status = ['0' => '管理员删除' , 1 => '待支付' , 2 => '已支付' , 3 => '已退款', 4 => '用户取消' , 5 => '用户删除',6=>'申请退款'];
+        $status = ['0' => '管理员删除' , 1 => '待支付' , 2 => '已支付' , 3 => '已退款', 4 => '用户取消' , 5 => '用户删除',6=>'申请退款',7=>'快速退款'];
         return $status[$value];
     }
 
@@ -97,6 +98,8 @@ class Order extends Base{
             $row_->st = self::ORDER_ST_USER_DELETE;
         }elseif ( $data['st'] == 'refundByUser' ) {
             $row_->st = self::ORDER_ST_USER_REFUND;
+        }elseif ($data['st'] == 'fastRefund') {
+            $row_->st = self::ORDER_ST_USER_FAST_REFUND;
         }
         $row_->save();
         return ['code' => 0 , 'msg' => '订单状态更改'];

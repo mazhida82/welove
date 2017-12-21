@@ -210,7 +210,7 @@ class Pay extends Base {
         $array = $this->xml($xml);//全要大写
         if ($array['RETURN_CODE'] == 'SUCCESS') {
             if ($array['RESULT_CODE'] == 'SUCCESS') {
-                $row_order->st = Order::ORDER_ST_REFUNDED;
+                $row_order->st = Order::ORDER_ST_USER_FAST_REFUND;
                 $row_order->refundno = $refund_no;
                 $row_order->save();
 
