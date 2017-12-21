@@ -46,6 +46,11 @@ class Coupon extends Base{
         return ['code'=>0,'data'=>$res];
     }
 
+    /**
+     * 获取可用的优惠券
+     * @param $data
+     * @return array
+     */
     public static function getUsable($data){
         $user_id = User::getUserIdByName($data['username']);
         unset($data['username']);
@@ -56,5 +61,7 @@ class Coupon extends Base{
         }
         return ['code'=>0,'data'=>$res];
     }
+
+
 
 }

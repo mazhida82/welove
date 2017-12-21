@@ -82,4 +82,16 @@ class OrderController extends BaseController{
         return json(Order::getOrder($data));
 
     }
+
+    public  function get_coupon(Request $request){
+        $data = $request->param();
+        $rules = [
+            'order_id' => 'require|number',
+        ];
+        $res = $this->validate($data, $rules);
+        if (true !== $res) {
+            return json(['code' => __LINE__, 'msg' => $res]);
+        }
+        return json(Order::getUseCoupon($data));
+    }
 }

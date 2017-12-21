@@ -191,4 +191,15 @@ class Order extends Base{
         }
         return ['code' => 0 , 'msg' => '查询订单成功' , 'data' => ['order' => $row_order , 'order_goods' => $list_order_goods]];
     }
+
+    public static function getUseCoupon($data){
+        $order_id = $data['order_id'];
+        $list = self::where(['id'=>$order_id])->find();
+        $coupon_id = $list->coupon_id;
+        if($coupon_id == 0){
+            return ['code' => __LINE__ , 'data' => '没有使用优惠券'];
+        }
+        $coupon = (new Coupon())->where(['id' => $coupon_id])->find();
+        return ['code'=>0,'data'=>$coupon];
+    }
 }

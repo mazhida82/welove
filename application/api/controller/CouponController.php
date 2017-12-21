@@ -44,6 +44,11 @@ class CouponController extends BaseController
         return json(Coupon::getMyCoupon($data));
     }
 
+    /**
+     * 查找可用的优惠券
+     * @param Request $request
+     * @return \think\response\Json
+     */
     public function usable(Request $request){
         $data = $request->param();
         $rule = ['username'=>'require','sum_price_all'=>'require|float'];
