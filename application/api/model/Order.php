@@ -19,6 +19,11 @@ class Order extends Base{
         $status = ['0' => '管理员删除' , 1 => '待支付' , 2 => '已支付' , 3 => '已退款', 4 => '用户取消' , 5 => '用户删除',6=>'申请退款'];
         return $status[$value];
     }
+
+    public function getGoodstAttr($value){
+        $status = [1 => '没发货' , 2 => '已发货' , 3 => '已收货' , 4 => '已评价' , 5 => '部分发货'];
+        return $status[$value];
+    }
     /**
      * 获取用户订单列表
      * @param $data
