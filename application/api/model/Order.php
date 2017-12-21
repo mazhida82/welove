@@ -35,9 +35,20 @@ class Order extends Base{
         if ( is_array( $user_id ) ) {
             return $user_id;
         }
+        $where3 = '';
+        if($data['st'] == 1){
+            $where3 = ['wl_order.st' => $data['st']];
+        }elseif($data['st'] == 2){
+            $where3 = ['wl_order.st'=>2,'wl_order.goodst'=>1];
+        }elseif($data['st'] == 3){
+            $where3 = ['wl_order.st'=>2,'wl_order.goodst'=>2];
+        }elseif($data['st'] == 4){
+            $where3 = ['wl_order.st'=>2,'wl_order.goodst'=>3];
+        }
+
         $where = ['wl_order.st' => ['neq' , 0] , 'user_id' => $user_id];
         $where2 = ['wl_order.st' => ['neq' , self::ORDER_ST_USER_DELETE]];
-        $where3 = ['wl_order.st'=>$data['st']];
+//        $where3 = ['wl_order.st'=>$data['st']];
         $field = 'wl_order.*,wl_order_good.name good_name,wl_order_good.price good_price,good_id,wl_order_good.property_id,num,img';
         $list_order = self::where( $where )->where( $where2 )->where($where3)->order( 'create_time desc' )->select();
         foreach ($list_order as $k => $v) {
