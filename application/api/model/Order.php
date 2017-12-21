@@ -21,7 +21,7 @@ class Order extends Base{
     }
 
     public function getGoodstAttr($value){
-        $status = [1 => '没发货' , 2 => '已发货' , 3 => '已收货' , 4 => '已评价' , 5 => '部分发货'];
+        $status = [1 => '没发货' , 2 => '已发货' , 3 => '已收货' ,  5 => '部分发货'];
         return $status[$value];
     }
     /**
@@ -171,5 +171,18 @@ class Order extends Base{
     //生成订单号 wx
     public function makeTradeNo($username){
         return date( 'mdHis' , time() ) .mt_rand(1,99). mt_rand( 10 , 999 ) . '_' . $username;
+    }
+
+    public static function getOrder($data){
+        $order_id = $data['order_id'];
+        $row_order = self::where( ['wl_order.id' => $order_id] )->find();
+        if ( !$row_order ) {
+            return ['code' => __LINE__ , 'msg' => '订单不存在'];
+        }
+        $list_order_goods = OrderGood::getGoodInfo( $order_id );
+        if ( count( $list_order_goods ) == 0 ) {
+            return ['code' => __LINE__ , 'msg' => '订单商品不存在'];
+        }
+        return ['code' => 0 , 'msg' => '查询订单成功' , 'data' => ['order' => $row_order , 'order_goods' => $list_order_goods]];
     }
 }

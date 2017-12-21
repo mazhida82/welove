@@ -23,6 +23,13 @@ class OrderGood extends Base{
 		$list_ = self::where( $where )->order( 'create_time asc' )->field( 'id,name good_name,good_id,price,num,img,st,unit')->select();
 		return $list_;
 	}
+
+	public static function getGoodInfo($order_id){
+		$where = ['order_id' => $order_id];
+		$field = 'wl_order_good.*,wl_property.value';
+		$list = self::where($where) ->join('wl_property','wl_property.id = wl_order_good.property_id','LEFT')->field($field)-> select();
+		return $list;
+	}
 	/*
 	 *
 	 * zhuangiu-zyg

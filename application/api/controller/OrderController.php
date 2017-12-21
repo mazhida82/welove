@@ -64,4 +64,22 @@ class OrderController extends BaseController{
         }
         return json(Order::updateSt($data));
     }
+
+    /**
+     * 查询订单
+     * @param Request $request
+     * @return \think\response\Json
+     */
+    public function read(Request $request) {
+        $data = $request->param();
+        $rules = [
+            'order_id' => 'require|number',
+        ];
+        $res = $this->validate($data, $rules);
+        if (true !== $res) {
+            return json(['code' => __LINE__, 'msg' => $res]);
+        }
+        return json(Order::getOrder($data));
+
+    }
 }
