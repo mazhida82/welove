@@ -95,7 +95,7 @@ class Pay extends Base {
         if (Admin::pwdGenerate($data['admin_pass']) !== $admin->pwd) {
             return ['code' => __LINE__, 'msg' => '密码有误！'];
         }
-        $row_order = Dingdan::where(['id' => $data['order_id']])->find();
+        $row_order = Order::where(['id' => $data['order_id']])->find();
         if (!$row_order) {
             return ['code' => __LINE__, 'msg' => '订单在！'];
         }
@@ -103,7 +103,7 @@ class Pay extends Base {
             return ['code' => __LINE__, 'msg' => '订单已退过款了！'];
         }
         if(empty($row_order->refund_no)){
-            $refund_no= Dingdan::makeRefundNo();
+            $refund_no= Order::makeRefundNo();
 
         }
         $fee = $row_order->sum_price;
@@ -140,9 +140,7 @@ class Pay extends Base {
         $array = $this->xml($xml);//全要大写
         if ($array['RETURN_CODE'] == 'SUCCESS') {
             if ($array['RESULT_CODE'] == 'SUCCESS') {
-                \app\back\model\Dingdan::udpateShouyi($row_order->shop_id,-$fee);
-                Shop::incTradenum( $row_order->shop_id ,false);//交易量－
-                $row_order->st = Dingdan::ORDER_ST_REFUNDED;
+                $row_order->st = Order::ORDER_ST_REFUNDED;
                 $row_order->refundno = $refund_no;
                 $row_order->save();
 
@@ -171,6 +169,10 @@ class Pay extends Base {
             $result .= $str[rand(0, 48)];
         }
         return $result;
+    }
+
+    public static function makeRefundNo() {
+        return date('mdHis', time()) . mt_rand(10, 99) .'_refund';
     }
 
 //签名 $data要先排好顺序
