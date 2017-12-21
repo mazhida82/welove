@@ -208,6 +208,7 @@ class Pay extends Base {
         $url = 'https://api.mch.weixin.qq.com/secapi/pay/refund';
         $xml = $this->http_post($url, $post_xml);
         $array = $this->xml($xml);//全要大写
+        dump($array);
         if ($array['RETURN_CODE'] == 'SUCCESS') {
             if ($array['RESULT_CODE'] == 'SUCCESS') {
                 $row_order->st = Order::ORDER_ST_REFUNDED;
