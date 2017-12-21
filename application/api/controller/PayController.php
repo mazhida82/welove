@@ -31,6 +31,12 @@ class PayController extends BaseController {
 		return json((new Pay)->requestWxPay($data,$request));
 
     }
+
+    /**
+     * 申请退款
+     * @param Request $request
+     * @return \think\response\Json
+     */
     public function refund(Request $request){
         $rules = ['order_id' => 'require', 'admin_pass' => 'require'];
         $data = $request->param();
@@ -39,7 +45,16 @@ class PayController extends BaseController {
             return json(['code' => __LINE__, 'msg' => $res]);
         }
         return json((new Pay)->refundToUser($data));
+    }
 
+    public function fast_refund(Request $request){
+        $rules = ['order_id' => 'require'];
+        $data = $request->param();
+        $res = $this->validate($data, $rules);
+        if ($res !== true) {
+            return json(['code' => __LINE__, 'msg' => $res]);
+        }
+        return json((new Pay)->promptlyRefund($data));
     }
 
 

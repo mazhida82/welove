@@ -158,9 +158,77 @@ class Pay extends Base {
             $ret['RETURN_MSG'] = $array['RETURN_MSG'];
         }
         return $ret;
-
     }
 
+
+    /*
+     * 立即退款
+     * */
+    public function promptlyRefund($data) {
+        $row_order = Order::where(['id' => $data['order_id']])->find();
+        if (!$row_order) {
+            return ['code' => __LINE__, 'msg' => '订单在！'];
+        }
+        if ($row_order->st == Dingdan::ORDER_ST_REFUNDED) {
+            return ['code' => __LINE__, 'msg' => '订单已退过款了！'];
+        }
+        if(empty($row_order->refund_no)){
+            $refund_no= Order::makeRefundNo();
+
+        }
+        $fee = $row_order->sum_price;
+        $appid = config('wx_appid');//如果是公众号 就是公众号的appid
+        $mch_id = config('wx_mchid');
+        $nonce_str = $this->nonce_str();//随机字符串
+        $out_refund_no = $refund_no;//商户退款号
+        $out_trade_no = $row_order->orderno;//商户订单号
+        $total_fee = $fee * 100;//最不为1
+
+        //这里是按照顺序的 因为下面的签名是按照顺序 排序错误 肯定出错
+        $post['appid'] = $appid;
+        $post['mch_id'] = $mch_id;
+        $post['nonce_str'] = $nonce_str;//随机字符串
+        $post['op_user_id'] = $mch_id;
+        $post['out_refund_no'] = $out_refund_no;
+        $post['out_trade_no'] = $out_trade_no;
+        $post['refund_fee'] = $total_fee;//总金额 最低为一块钱 必须是整数
+        $post['total_fee'] = $total_fee;//总金额 最低为一块钱 必须是整数
+        $sign = $this->sign($post);//签名            <notify_url>' . $notify_url . '</notify_url>
+        $post_xml = '<xml>
+           <appid>' . $appid . '</appid>
+           <mch_id>' . $mch_id . '</mch_id>
+           <nonce_str>' . $nonce_str . '</nonce_str>
+           <op_user_id>' . $mch_id . '</op_user_id>
+           <out_refund_no>' . $out_refund_no . '</out_refund_no>
+           <out_trade_no>' . $out_trade_no . '</out_trade_no>
+           <refund_fee>' . $total_fee . '</refund_fee>
+           <total_fee>' . $total_fee . '</total_fee>
+           <sign>' . $sign . '</sign>
+        </xml> ';
+        $url = 'https://api.mch.weixin.qq.com/secapi/pay/refund';
+        $xml = $this->http_post($url, $post_xml);
+        $array = $this->xml($xml);//全要大写
+        if ($array['RETURN_CODE'] == 'SUCCESS') {
+            if ($array['RESULT_CODE'] == 'SUCCESS') {
+                $row_order->st = Order::ORDER_ST_REFUNDED;
+                $row_order->refundno = $refund_no;
+                $row_order->save();
+
+                $ret['code'] = 0;
+                $ret['msg'] = "退款申请成功";
+            } else {
+                $ret['code'] = $array['ERR_CODE'];
+                $ret['msg'] = $array['ERR_CODE_DES'];
+            }
+
+        } else {
+            $ret['code'] = __LINE__;
+            $ret['msg'] = "错误";
+            $ret['RETURN_CODE'] = $array['RETURN_CODE'];
+            $ret['RETURN_MSG'] = $array['RETURN_MSG'];
+        }
+        return $ret;
+    }
 //随机32位字符串
     private function nonce_str() {
         $result = '';
