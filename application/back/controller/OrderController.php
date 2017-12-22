@@ -99,7 +99,7 @@ class OrderController extends BaseController {
      */
     public function delete(Request $request) {
         $data = $request->param();
-        if ($row_=$this->deleteStatusById($data['id'], new Dingdan())) {
+        if ($row_=$this->deleteStatusById($data['id'], new Order())) {
             //删除订单            Shop::increaseOrdernum( $row_->shop_id ,false);
             $this->success('删除成功',  $data['url'], '', 1);
         } else {
