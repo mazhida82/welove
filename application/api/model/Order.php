@@ -230,6 +230,7 @@ class Order extends Base{
         if ( !$row_order ) {
             return ['code' => __LINE__ , 'msg' => '订单不存在'];
         }
+        $row_order['refund_time'] = date('Y-m-d H:i:s',$row_order['refund_time']);
         $list_order_goods = OrderGood::getGoodInfo( $order_id );
         if ( count( $list_order_goods ) == 0 ) {
             return ['code' => __LINE__ , 'msg' => '订单商品不存在'];
