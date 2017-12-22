@@ -30,9 +30,6 @@
                             </option>
                         <?php } ?>
                     </select>
-                    <select name="type" id="" class="form-control">
-
-                    </select>
                 </div>
                 <div class=" col-xs-4" style=" padding-right: 40px;color:inherit">
                     <select class=" form-control" name="paixu">

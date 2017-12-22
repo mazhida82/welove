@@ -30,17 +30,9 @@
                         <label for="sName" class="col-xs-3 control-label">退款号：</label>
 
                         <div class="col-xs-8 ">
-                            <label></label>
+                            <label>{$row_order->refundno}</label>
                         </div>
                     </div>
-
-					<div class="form-group ">
-						<label for="sName" class="col-xs-3 control-label">订单类型：</label>
-
-						<div class="col-xs-8 ">
-							<label>{$row_order->type}</label>
-						</div>
-					</div>
 					<div class="form-group ">
 						<label for="sName" class="col-xs-3 control-label">状态：</label>
 
