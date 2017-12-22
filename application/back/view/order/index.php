@@ -178,7 +178,6 @@
 </div>
 <script>
     function allow_refund(order_id) {
-        alert(order_id)
         if(!confirm('确定给用户退款么？')){
             return false;
         }
