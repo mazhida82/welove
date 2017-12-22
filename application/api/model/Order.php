@@ -232,6 +232,10 @@ class Order extends Base{
         }
         $row_order['refund_time'] = date('Y-m-d H:i:s',$row_order['refund_time']);
         $list_order_goods = OrderGood::getGoodInfo( $order_id );
+        $row_order['total_num'] = 0;
+        foreach  ($list_order_goods as $k=>$v){
+            $row_order['total_num'] += $v['num'];
+        }
         if ( count( $list_order_goods ) == 0 ) {
             return ['code' => __LINE__ , 'msg' => '订单商品不存在'];
         }
