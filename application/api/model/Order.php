@@ -16,6 +16,8 @@ class Order extends Base{
     const GOOD_ST_OVERHANG      = 1;//商品待发货
     const GOOT_ST_RECEIVED     = 3;//商品已收货
 
+    protected $dateFormat='Y-m-d H:i:s';
+
     public function getStAttr($value){
         $status = ['0' => '管理员删除' , 1 => '待支付' , 2 => '已支付' , 3 => '已退款', 4 => '用户取消' , 5 => '用户删除',6=>'申请退款',7=>'快速退款'];
         return $status[$value];
