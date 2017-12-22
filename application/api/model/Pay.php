@@ -102,15 +102,11 @@ class Pay extends Base {
         if ($row_order->st == Dingdan::ORDER_ST_REFUNDED) {
             return ['code' => __LINE__, 'msg' => '订单已退过款了！'];
         }
-        if(empty($row_order->refund_no)){
-            $refund_no= Order::makeRefundNo();
-
-        }
         $fee = $row_order->sum_price;
         $appid = config('wx_appid');//如果是公众号 就是公众号的appid
         $mch_id = config('wx_mchid');
         $nonce_str = $this->nonce_str();//随机字符串
-        $out_refund_no = $refund_no;//商户退款号
+        $out_refund_no = $row_order->refundno;//商户退款号
         $out_trade_no = $row_order->orderno;//商户订单号
         $total_fee = $fee * 100;//最不为1
 
@@ -141,7 +137,6 @@ class Pay extends Base {
         if ($array['RETURN_CODE'] == 'SUCCESS') {
             if ($array['RESULT_CODE'] == 'SUCCESS') {
                 $row_order->st = Order::ORDER_ST_REFUNDED;
-                $row_order->refundno = $refund_no;
                 $row_order->save();
 
                 $ret['code'] = 0;

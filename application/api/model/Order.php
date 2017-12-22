@@ -75,8 +75,8 @@ class Order extends Base{
         if ( is_array( $user_id ) ) {
             return $user_id;
         }
-        $where = ['wl_order.st' => 3 , 'user_id' => $user_id];
-        $where2 = ['wl_order.st' => 6 , 'user_id' => $user_id];
+        $where = ['wl_order.st' => 3 ,'user_id'=>$user_id];
+        $where2 = ['wl_order.st' => 6 ];
 //        $where3 = ['wl_order.st' => 7 , 'user_id' => $user_id];
 //        $where3 = ['wl_order.st'=>$data['st']];
         $field = 'wl_order.*,wl_order_good.name good_name,wl_order_good.price good_price,good_id,wl_order_good.property_id,num,img';
@@ -140,6 +140,7 @@ class Order extends Base{
             $row_->st = self::ORDER_ST_USER_DELETE;
         }elseif ( $data['st'] == 'refundByUser' ) {
             $row_->st = self::ORDER_ST_USER_REFUND;
+            $row_->refundno = Order::makeRefundNo();
         }elseif ($data['st'] == 'fastRefund') {
             $row_->st = self::ORDER_ST_USER_FAST_REFUND;
         }
