@@ -140,6 +140,7 @@ class Order extends Base{
         }elseif ( $data['st'] == 'refundByUser' ) {
             $row_->st = self::ORDER_ST_USER_REFUND;
             $row_->refundno = Order::makeRefundNo();
+            $row_->refund_time = time();
         }elseif ($data['st'] == 'fastRefund') {
             $row_->st = self::ORDER_ST_USER_FAST_REFUND;
         }
