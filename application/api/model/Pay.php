@@ -99,17 +99,18 @@ class Pay extends Base {
         if (!$row_order) {
             return ['code' => __LINE__, 'msg' => '订单在！'];
         }
-        if ($row_order->st == Dingdan::ORDER_ST_REFUNDED) {
+        if ($row_order->st == Order::ORDER_ST_REFUNDED) {
             return ['code' => __LINE__, 'msg' => '订单已退过款了！'];
         }
         $fee = $row_order->sum_price;
         $appid = config('wx_appid');//如果是公众号 就是公众号的appid
         $mch_id = config('wx_mchid');
+
+
         $nonce_str = $this->nonce_str();//随机字符串
         $out_refund_no = $row_order->refundno;//商户退款号
         $out_trade_no = $row_order->orderno;//商户订单号
         $total_fee = $fee * 100;//最不为1
-
         //这里是按照顺序的 因为下面的签名是按照顺序 排序错误 肯定出错
         $post['appid'] = $appid;
         $post['mch_id'] = $mch_id;
@@ -131,6 +132,7 @@ class Pay extends Base {
            <total_fee>' . $total_fee . '</total_fee>
            <sign>' . $sign . '</sign>
         </xml> ';
+
         $url = 'https://api.mch.weixin.qq.com/secapi/pay/refund';
         $xml = $this->http_post($url, $post_xml);
         $array = $this->xml($xml);//全要大写
