@@ -23,11 +23,11 @@ class GoodController extends BaseController {
 
     public function glist(Request $request){
         $data = $request->param();
-        $rule = ['cate_id'=>'require|number'];
-        $res = $this->validate($data, $rule);
-        if ($res !== true) {
-            return json(['code' => __LINE__, 'msg' => '没有分类ID']);
-        }
+//        $rule = ['cate_id'=>'require|number'];
+//        $res = $this->validate($data, $rule);
+//        if ($res !== true) {
+//            return json(['code' => __LINE__, 'msg' => '没有分类ID']);
+//        }
         return json(Good::getGoodPage($data));
     }
 

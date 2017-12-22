@@ -32,22 +32,33 @@ class Good extends Base {
     }
 
     public static function getGoodPage($data=[]){
-        $where = ['wl_good.st'=>1,'cate_id'=>$data['cate_id']];
         $order = 'wl_good.sort asc'; //默认按照排序字段来排序
+        if(!array_key_exists('name',$data)){
+            $where = ['wl_good.st'=>1,'cate_id'=>$data['cate_id']];
+            if ( !empty( $data['paixu'] ) && $data['paixu'] == 'sales' ) {
+                $order = "wl_good.sales desc";
+            }
+            if ( !empty( $data['paixu'] ) && $data['paixu'] == 'news' ) {
+                $order = "wl_good.create_time desc";
+            }
+            if(!empty($data['paixu']) && $data['paixu']=='price'){
+                $order = 'wl_good.price asc';//按照价格  正序
+            }
+            if(!empty($data['paixu']) && $data['paixu']=='expensive'){
+                $order = 'wl_good.price desc';//按照价格  正序
+            }
+        }else{
+            $where['wl_good.name'] = ['like','%' . $data['name'] . '%'];
+        }
+        $list = self::where($where)->order($order)->paginate(8);
+        return ['code'=>0,'data'=>$list];
+    }
 
-        if ( !empty( $data['paixu'] ) && $data['paixu'] == 'sales' ) {
-            $order = "wl_good.sales desc";
+    public static function getSearchList($data){
+        if ( !empty( $data['name_'] ) ) {
+            $where['shop.name|shop.truename|city'] = ['like' , '%' . $data['name_'] . '%'];
         }
-        if ( !empty( $data['paixu'] ) && $data['paixu'] == 'news' ) {
-            $order = "wl_good.create_time desc";
-        }
-        if(!empty($data['paixu']) && $data['paixu']=='price'){
-            $order = 'wl_good.price asc';//按照价格  正序
-        }
-        if(!empty($data['paixu']) && $data['paixu']=='expensive'){
-            $order = 'wl_good.price desc';//按照价格  正序
-        }
-
+        $order = 'wl_good.sort asc'; //默认按照排序字段来排序
         $list = self::where($where)->order($order)->paginate(8);
         return ['code'=>0,'data'=>$list];
     }
