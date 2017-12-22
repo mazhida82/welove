@@ -70,6 +70,36 @@ class Order extends Base{
         return ['code' => 0 , 'msg' => '获取订单列表成功' , 'data' => $list_order];
     }
 
+    public static function getMyRefundOrders($data){
+        $user_id = User::getUserIdByName( $data['username'] );
+        if ( is_array( $user_id ) ) {
+            return $user_id;
+        }
+        $where = ['wl_order.st' => 3 , 'user_id' => $user_id];
+        $where2 = ['wl_order.st' => 6 , 'user_id' => $user_id];
+        $where3 = ['wl_order.st' => 7 , 'user_id' => $user_id];
+//        $where3 = ['wl_order.st'=>$data['st']];
+        $field = 'wl_order.*,wl_order_good.name good_name,wl_order_good.price good_price,good_id,wl_order_good.property_id,num,img';
+        $list_order = self::where( $where )->whereOr( $where2 )->whereOr($where3)->order( 'create_time desc' )->select();
+        foreach ($list_order as $k => $v) {
+            $good = (new OrderGood()) -> where([ 'order_id' => $v['id'] ]) ->select();
+            $list_order[$k]['total_num'] = 0;
+            foreach ($good as $m => $n){
+                if($n['property_id'] != 0 ){
+                    $property = (new Property())->where(['id'=>$n['property_id'],'st'=>1])->find();
+                    $n['property'] = $property -> value;
+                }
+                $list_order[$k]['total_num'] += $n['num'];
+            }
+            $list_order [$k]['order_good'] = $good;
+        }
+//        dump($list_order);exit;
+        if ( empty($list_order)) {
+            return ['code' => __LINE__ , 'msg' => '订单不存在'];
+        }
+        return ['code' => 0 , 'msg' => '获取订单列表成功' , 'data' => $list_order];
+    }
+
     /**
      * 更改订单为已支付状态
      * @param $data

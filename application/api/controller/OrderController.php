@@ -83,6 +83,11 @@ class OrderController extends BaseController{
 
     }
 
+    /**
+     * 查询已使用优惠券
+     * @param Request $request
+     * @return \think\response\Json
+     */
     public  function get_coupon(Request $request){
         $data = $request->param();
         $rules = [
@@ -93,5 +98,21 @@ class OrderController extends BaseController{
             return json(['code' => __LINE__, 'msg' => $res]);
         }
         return json(Order::getUseCoupon($data));
+    }
+
+
+    /**
+     * 获取退货订单列表
+     * @param Request $request
+     * @return \think\response\Json
+     */
+    public function get_refund(Request $request){
+        $data = $request->param();
+        $rule = ['username'=>'require'];
+        $res = $this->validate($data, $rule);
+        if (true !== $res) {
+            return json(['code' => __LINE__, 'msg' => $res]);
+        }
+        return json(Order::getMyRefundOrders($data));
     }
 }
