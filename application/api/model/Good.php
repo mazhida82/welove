@@ -33,7 +33,7 @@ class Good extends Base {
 
     public static function getGoodPage($data=[]){
         $order = 'wl_good.sort asc'; //默认按照排序字段来排序
-        if(!array_key_exists('name',$data)){
+        if(empty($data['name'])){
             $where = ['wl_good.st'=>1,'cate_id'=>$data['cate_id']];
             if ( !empty( $data['paixu'] ) && $data['paixu'] == 'sales' ) {
                 $order = "wl_good.sales desc";
