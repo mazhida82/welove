@@ -187,7 +187,7 @@
             return false;
         }
         $.ajax({
-            url:"{:url('api/pay/refund')}",//前台退款接口
+            url:"{:url('wx.php/pay/refund')}",//前台退款接口
             method:'post',
             data:{
                 order_id:order_id,
