@@ -75,8 +75,8 @@
 									<img src="__IMGURL__{$row_good->img}" alt="没有上传图片" width="136"/>
 								</div>
 								<div class="col-xs-6">
-									<p>编号：{$row_good->good_id}</p>
-									<p>商品：{$row_good->good_name}</p>
+									<p>编号：{$row_good->id}</p>
+									<p>商品：{$row_good->name}</p>
 									<p>单价*数量：{$row_good->price} * {$row_good->num}</p>
 <?php if($row_order->getData('type')==3 ||$row_order->getData('type')==6){?>
 	<p>团购价：{$row_good->price_group}</p>
@@ -102,11 +102,16 @@
 						</div>
 					</div>
                     <div class="form-group ">
-                        <label for="sName" class="col-xs-3 control-label">用订金/优惠：</label>
-
+                        <label for="sName" class="col-xs-3 control-label">优惠券：</label>
+						<?php if($row_order->coupon_id == 0){?>
                         <div class="col-xs-8 ">
-                            <label>元</label>
+                            <label>没有使用优惠券</label>
                         </div>
+						<?php }else{?>
+							<div class="col-xs-8 ">
+								<label>使用了{$coupon_list->result}的优惠券</label>
+							</div>
+						<?php } ?>
                     </div>
 					<div class="form-group ">
 						<label for="sName" class="col-xs-3 control-label">收货人信息：</label>

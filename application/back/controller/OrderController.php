@@ -6,6 +6,7 @@ use app\api\model\Shop;
 use app\back\model\Address;
 use app\back\model\Admin;
 use app\back\model\Base;
+use app\back\model\Coupon;
 use app\back\model\Dingdan;
 use app\back\model\Cate;
 
@@ -49,7 +50,11 @@ class OrderController extends BaseController {
         $row_order = Order::findOne($data['id']);
 		//dump($row_order);
         $list_good =  OrderGood::getGood($row_order->id);
-        return $this->fetch('', ['row_order' => $row_order, 'list_good'=>$list_good,'title'=>'订单详情 '.$row_order->orderno]);
+        if($row_order->coupon_id != 0){
+            $coupon = new Coupon();
+            $coupon_list = $coupon->where(['id' => $row_order->coupon_id])->find();
+        }
+        return $this->fetch('', ['row_order' => $row_order, 'list_good'=>$list_good,'title'=>'订单详情 '.$row_order->orderno,'coupon_list'=>$coupon_list]);
     }
     //改发货状态
     public  function edit(Request $request){
