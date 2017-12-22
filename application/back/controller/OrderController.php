@@ -51,10 +51,10 @@ class OrderController extends BaseController {
 		//dump($row_order);
         $list_good =  OrderGood::getGood($row_order->id);
         if($row_order->coupon_id != 0){
-            $coupon = new Coupon();
-            $coupon_list = $coupon->where(['id' => $row_order->coupon_id])->find();
+            $coupon_list = (new Coupon())->where(['id' => $row_order->coupon_id])->find();
+            return $this->fetch('', ['row_order' => $row_order, 'list_good'=>$list_good,'title'=>'订单详情 '.$row_order->orderno,'coupon_list'=>$coupon_list]);
         }
-        return $this->fetch('', ['row_order' => $row_order, 'list_good'=>$list_good,'title'=>'订单详情 '.$row_order->orderno,'coupon_list'=>$coupon_list]);
+        return $this->fetch('', ['row_order' => $row_order, 'list_good'=>$list_good,'title'=>'订单详情 '.$row_order->orderno]);
     }
     //改发货状态
     public  function edit(Request $request){

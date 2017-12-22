@@ -6,7 +6,6 @@
 		padding-right: 10px;
 	}
 </style>
-
 <!--弹出添加用户窗口-->
 <form class="form-horizontal" action="" method="post">
 
