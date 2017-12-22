@@ -75,7 +75,7 @@ class Order extends Base{
         if ( is_array( $user_id ) ) {
             return $user_id;
         }
-        $where = ['wl_order.refundno' => ['neq',''] ,'user_id'=>$user_id,'wl_order.st'=>['neq',7]];
+        $where = ['wl_order.refundno' => ['neq',''] ,'user_id'=>$user_id,'wl_order.goodst'=>['neq',1]];
 //        $where3 = ['wl_order.st' => 7 , 'user_id' => $user_id];
 //        $where3 = ['wl_order.st'=>$data['st']];
         $field = 'wl_order.*,wl_order_good.name good_name,wl_order_good.price good_price,good_id,wl_order_good.property_id,num,img';
