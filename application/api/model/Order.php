@@ -77,10 +77,10 @@ class Order extends Base{
         }
         $where = ['wl_order.st' => 3 , 'user_id' => $user_id];
         $where2 = ['wl_order.st' => 6 , 'user_id' => $user_id];
-        $where3 = ['wl_order.st' => 7 , 'user_id' => $user_id];
+//        $where3 = ['wl_order.st' => 7 , 'user_id' => $user_id];
 //        $where3 = ['wl_order.st'=>$data['st']];
         $field = 'wl_order.*,wl_order_good.name good_name,wl_order_good.price good_price,good_id,wl_order_good.property_id,num,img';
-        $list_order = self::where( $where )->whereOr( $where2 )->whereOr($where3)->order( 'create_time desc' )->select();
+        $list_order = self::where( $where )->whereOr( $where2 )->order( 'create_time desc' )->select();
         foreach ($list_order as $k => $v) {
             $good = (new OrderGood()) -> where([ 'order_id' => $v['id'] ]) ->select();
             $list_order[$k]['total_num'] = 0;
