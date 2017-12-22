@@ -48,7 +48,7 @@ class OrderController extends BaseController {
     public function read(Request $request) {
         $data = $request->param();
         $row_order = Order::findOne($data['id']);
-		//dump($row_order);
+//		dump($row_order);
         $list_good =  OrderGood::getGood($row_order->id);
         if($row_order->coupon_id != 0){
             $coupon_list = (new Coupon())->where(['id' => $row_order->coupon_id])->find();

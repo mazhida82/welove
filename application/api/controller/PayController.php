@@ -38,8 +38,8 @@ class PayController extends BaseController {
      * @return \think\response\Json
      */
     public function refund(Request $request){
-        $rules = ['order_id' => 'require', 'admin_pass' => 'require'];
         $data = $request->param();
+        $rules = ['order_id' => 'require', 'admin_pass' => 'require'];
         $res = $this->validate($data, $rules);
         if ($res !== true) {
             return json(['code' => __LINE__, 'msg' => $res]);
