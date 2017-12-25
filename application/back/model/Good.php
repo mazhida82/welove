@@ -55,7 +55,7 @@ class Good extends Base {
             $where['wl_good.st']= ['=',2];
         }
         if (!empty($data['to_top'])) {
-            $where['wl_good.to_top'] = $data['to_top'];
+            $where['wl_good.is_home_page'] = $data['to_top'];
         }
         $list_ = self::where($where)->join('wl_cate', 'wl_cate.id=wl_good.cate_id', 'left')->field($field)->order($order)->paginate(10);
 //        dump($list_);exit;
