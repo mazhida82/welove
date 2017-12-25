@@ -58,11 +58,11 @@
     {block name="menu_left"}
     <div class="leftMeun" id="leftMeun">
         <div id="logoDiv">
-            欢迎使用55+后台
+            欢迎使用welove后台
             <p id="logoP">
-                <a href="{:url('index/clear_cache')}">
-                    <button class="alert btn-xs">清理服务器缓存</button>
-                </a>
+<!--                <a href="{:url('index/clear_cache')}">-->
+<!--                    <button class="alert btn-xs">清理服务器缓存</button>-->
+<!--                </a>-->
             </p>
         </div>
         <div id="personInfor">
