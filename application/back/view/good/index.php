@@ -92,9 +92,11 @@
                 状 态
             </div>
             <div class="col-xs-2">
-                时间
+                添加时间
             </div>
-
+            <div class="col-xs-1">
+                是否置顶
+            </div>
             <div class="col-xs-">
                 操 作
             </div>
@@ -135,6 +137,9 @@
                         </div>
                         <div class="col-xs-2" title="{$row->create_time}">
                             {$row->create_time}
+                        </div>
+                        <div class="col-xs-1">
+                            {$row->is_home_page}
                         </div>
                         <div class="col-xs-">
 <?php if($row->img_big_st==0){?>
