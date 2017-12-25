@@ -4,7 +4,7 @@ namespace app\api\model;
 use think\Model;
 
 class GoodImgBigs extends Base{
-    protected $table = 'good_img_bigs';
+    protected $table = 'wl_good_img_bigs';
     /**
      * 获取商品多图接口模型
      */

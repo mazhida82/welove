@@ -59,6 +59,16 @@ class GoodController extends BaseController {
         }
         return json(Good::getInfo($data));
     }
+
+    /**
+     * 商品多图接口
+     */
+    public function images(Request $requset){
+        $data = $requset->param();
+        return json(GoodImgBigs::getImg($data['good_id']));
+    }
+
+
 //    public function collect(Request $request){
 //        $data = $request->param();
 //        $rule = ['good_id' => 'require|number','user_name'=>'require'];
@@ -83,13 +93,6 @@ class GoodController extends BaseController {
 //
 //    }
 //
-//    /**
-//     * 商品多图接口
-//     */
-//    public function images(Request $requset){
-//        $data = $requset->param();
-//        return json(GoodImgBigs::getImg($data['good_id']));
-//    }
 //    /**
 //     * 团购多图
 //     */
