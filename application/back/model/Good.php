@@ -12,7 +12,7 @@ class Good extends Base {
         return $status[$value];
     }
 
-    public function getisHomePage($value){
+    public function getIsHomePageAttr($value){
         $status = [0 => '未置顶', 1 => '已置顶'];
         return $status[$value];
     }
