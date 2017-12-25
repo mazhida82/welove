@@ -46,7 +46,7 @@ class Good extends Base {
         if(!empty($data['paixu']) && $data['paixu']=='expensive'){
             $order = 'wl_good.price desc';//按照价格  正序
         }
-        $list = self::where($where)->order($order)->paginate(6);
+        $list = self::where($where)->order($order)->paginate(4);
         return ['code'=>0,'data'=>$list];
     }
 
