@@ -33,22 +33,38 @@ class Good extends Base {
 
     public static function getGoodPage($data=[]){
         $order = 'wl_good.sort asc'; //默认按照排序字段来排序
-        if(empty($data['name'])){
-            $where = ['wl_good.st'=>1,'cate_id'=>$data['cate_id']];
-            if ( !empty( $data['paixu'] ) && $data['paixu'] == 'sales' ) {
-                $order = "wl_good.sales desc";
-            }
-            if ( !empty( $data['paixu'] ) && $data['paixu'] == 'news' ) {
-                $order = "wl_good.create_time desc";
-            }
-            if(!empty($data['paixu']) && $data['paixu']=='price'){
-                $order = 'wl_good.price asc';//按照价格  正序
-            }
-            if(!empty($data['paixu']) && $data['paixu']=='expensive'){
-                $order = 'wl_good.price desc';//按照价格  正序
-            }
-        }else{
-            $where['wl_good.name'] = ['like','%' . $data['name'] . '%'];
+        $where = ['wl_good.st'=>1,'cate_id'=>$data['cate_id']];
+        if ( !empty( $data['paixu'] ) && $data['paixu'] == 'sales' ) {
+            $order = "wl_good.sales desc";
+        }
+        if ( !empty( $data['paixu'] ) && $data['paixu'] == 'news' ) {
+            $order = "wl_good.create_time desc";
+        }
+        if(!empty($data['paixu']) && $data['paixu']=='price'){
+            $order = 'wl_good.price asc';//按照价格  正序
+        }
+        if(!empty($data['paixu']) && $data['paixu']=='expensive'){
+            $order = 'wl_good.price desc';//按照价格  正序
+        }
+        $list = self::where($where)->order($order)->paginate(8);
+        return ['code'=>0,'data'=>$list];
+    }
+
+    public static function getSearchGoodPage($data){
+        $where['wl_good.name'] = ['like', '%' . $data['name'] . '%'];
+        $where['wl_good.st'] = ['eq' , 1];
+        $order = 'wl_good.sort asc'; //默认按照排序字段来排序
+        if ( !empty( $data['paixu'] ) && $data['paixu'] == 'sales' ) {
+            $order = "wl_good.sales desc";
+        }
+        if ( !empty( $data['paixu'] ) && $data['paixu'] == 'news' ) {
+            $order = "wl_good.create_time desc";
+        }
+        if(!empty($data['paixu']) && $data['paixu']=='price'){
+            $order = 'wl_good.price asc';//按照价格  正序
+        }
+        if(!empty($data['paixu']) && $data['paixu']=='expensive'){
+            $order = 'wl_good.price desc';//按照价格  正序
         }
         $list = self::where($where)->order($order)->paginate(8);
         return ['code'=>0,'data'=>$list];

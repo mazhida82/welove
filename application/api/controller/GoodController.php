@@ -20,15 +20,34 @@ class GoodController extends BaseController {
         return json(Good::getHomePage());
     }
 
-
+    /**
+     * 点击分类后的商品列表页
+     * @param Request $request
+     * @return \think\response\Json
+     */
     public function glist(Request $request){
         $data = $request->param();
-//        $rule = ['cate_id'=>'require|number'];
-//        $res = $this->validate($data, $rule);
-//        if ($res !== true) {
-//            return json(['code' => __LINE__, 'msg' => '没有分类ID']);
-//        }
+        $rule = ['cate_id'=>'require|number'];
+        $res = $this->validate($data, $rule);
+        if ($res !== true) {
+            return json(['code' => __LINE__, 'msg' => '没有分类ID']);
+        }
         return json(Good::getGoodPage($data));
+    }
+
+    /**
+     * 搜索后的商品列表页
+     * @param Request $request
+     * @return \think\response\Json
+     */
+    public function search_list(Request $request){
+        $data = $request -> param();
+        $rule = ['name' => 'require'];
+        $res = $this -> validate($data, $rule);
+        if( $res !== true){
+            return json(['code' => __LINE__, 'msg' => '没有搜索条件']);
+        }
+        return json(Good::getSearchGoodPage($data));
     }
 
     public function info(Request $request){
