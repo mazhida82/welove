@@ -24,7 +24,7 @@ class Good extends Base {
      * @return array
      */
     public static function getHomePage(){
-        $list = self::where(['st'=>1,'is_home_page'=>1])->order('sort asc')->paginate(8);
+        $list = self::where(['st'=>1,'is_home_page'=>1])->order('sort asc')->paginate(4);
         if($list->isEmpty()){
             return ['code'=>__LINE__];
         }
