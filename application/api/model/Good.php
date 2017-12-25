@@ -24,7 +24,7 @@ class Good extends Base {
      * @return array
      */
     public static function getHomePage(){
-        $list = self::where(['st'=>1,'is_home_page'=>1])->order('sort asc')->paginate(4);
+        $list = self::where(['st'=>1,'is_home_page'=>1])->order('sort asc')->paginate(8);
         if($list->isEmpty()){
             return ['code'=>__LINE__];
         }
@@ -46,7 +46,7 @@ class Good extends Base {
         if(!empty($data['paixu']) && $data['paixu']=='expensive'){
             $order = 'wl_good.price desc';//按照价格  正序
         }
-        $list = self::where($where)->order($order)->paginate(8);
+        $list = self::where($where)->order($order)->paginate(2);
         return ['code'=>0,'data'=>$list];
     }
 
@@ -66,16 +66,7 @@ class Good extends Base {
         if(!empty($data['paixu']) && $data['paixu']=='expensive'){
             $order = 'wl_good.price desc';//按照价格  正序
         }
-        $list = self::where($where)->order($order)->paginate(8);
-        return ['code'=>0,'data'=>$list];
-    }
-
-    public static function getSearchList($data){
-        if ( !empty( $data['name_'] ) ) {
-            $where['shop.name|shop.truename|city'] = ['like' , '%' . $data['name_'] . '%'];
-        }
-        $order = 'wl_good.sort asc'; //默认按照排序字段来排序
-        $list = self::where($where)->order($order)->paginate(8);
+        $list = self::where($where)->order($order)->paginate(2);
         return ['code'=>0,'data'=>$list];
     }
 
