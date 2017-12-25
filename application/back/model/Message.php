@@ -18,7 +18,7 @@ class Message extends Base{
      * 处理主页资源列表
      */
 
-    public static function getList($data=[],$where=['wl_message.st' => ['=',1]]){
+    public static function getList($data=[],$where=['wl_message.st' => ['neq',0]]){
        $order = 'wl_message.create_time desc';
         $fields = 'wl_message.*,wl_user.nickname,wl_user.username';
         $list_ = self::where($where)->join('wl_user','wl_user.id=wl_message.user_id')->field($fields)->order($order)->paginate(10);
