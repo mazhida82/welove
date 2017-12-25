@@ -10,9 +10,9 @@ class GoodImgBigs extends Base{
      */
     public static function getImg($data){
         $imgList = self::where(['good_id'=>$data,'st'=>1])->select();
-        if($imgList->isEmpty()){
-            return ['code'=>__LINE__];
-        }
+//        if($imgList->isEmpty()){
+//            return ['code'=>__LINE__];
+//        }
         return ['code'=>0,'msg'=>'good/images','data'=>$imgList];
     }
 
