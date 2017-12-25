@@ -12,11 +12,15 @@ class Good extends Base {
         return $status[$value];
     }
 
+    public function getisHomePage($value){
+        $status = [0 => '未置顶', 1 => '已置顶'];
+        return $status[$value];
+    }
+
     public function updateAddAttr($good_id){
         $row_good = $this->where(['id'=>$good_id])->find();
         $row_good->is_add_attr =1 ;
         $row_good->save();
-
     }
     public static function getListByCateId($cate_id){
         $row_ = self::where(['cate_id'=>$cate_id,'st'=>['<>',0]])->find();
