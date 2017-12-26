@@ -1,5 +1,5 @@
 {extend name='layout:base' /}
-{block name="title"}花卉列表{/block}
+{block name="title"}welove{/block}
 
 {block name="content"}
 <style>
