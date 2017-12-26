@@ -144,7 +144,7 @@ class AdController extends BaseController {
 				$data['url'] = '/pages/groupPurchase/groupPurchase?activity_id=' .$data['url_bianhao'];
                 break;
             case Ad::URL_TO_GOOD_DETAIL:
-                $data['url'] = '/pages/bDetail/bDetail?good_id=' . $data['url_bianhao'];
+                $data['url'] = '/pages/goodDetail/goodDetail?good_id=' . $data['url_bianhao'];
                 break;
             case Ad::URL_TO_SHOP_DETAIL:
                 $data['url'] = '/pages/store/store?shop_id=' .  $data['url_bianhao'];
