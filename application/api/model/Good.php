@@ -74,6 +74,7 @@ class Good extends Base {
         $id = $data['good_id'];
         $list = self::where(['id'=>$id])->find();
 //        dump($list->data['property_st']);exit;
+        $list->desc= preg_replace('/<img src="\/editor/im', '<img src="https://huahui.qingyy.net/welovetp/editor',$list->desc );
         if(empty($list->data)){
             return ['code'=>__LINE__,'msg'=>'没有此商品'];
         }
