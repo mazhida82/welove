@@ -12,7 +12,7 @@ class Coupon extends Base{
         $field = 'wl_coupon.*,wl_users_coupon.coupon_id,wl_users_coupon.user_id';
         $list = self::where(['wl_coupon.status' => 1 /*, 'wl_users_coupon.st' => 1*/])->join('wl_users_coupon','wl_users_coupon.coupon_id = wl_coupon.id','LEFT')->field($field)->order('solution asc')->select();
 //        dump($list);exit;
-        return ['code','data'=>$list];
+        return ['code' => 0,'data' => $list];
     }
 
     /**
