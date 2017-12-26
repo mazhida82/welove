@@ -25,4 +25,9 @@ class UserCoupon extends Base{
         $list = self::where(['user_id'=>$data['user_id'],'st'=>'1'])->where('rule','<=',$data['sum_price_all'])->join('coupon','wl_users_coupon.coupon_id=coupon.id')->order('end_time asc')->select();
         return $list;
     }
+
+    public static function getListByUidCid($user_id,$cid){
+        $list = self::where(['user_id' => $user_id , 'coupon_id' => $cid])->find();
+        return $list;
+    }
 }

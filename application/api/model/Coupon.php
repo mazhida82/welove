@@ -8,10 +8,19 @@ class Coupon extends Base{
      * 获取主页优惠券列表
      * @return \think\response\Json
      */
-    public static function getList(){
+    public static function getList($data){
+        $user_id = User::getUserIdByName($data);
         $field = 'wl_coupon.*,wl_users_coupon.coupon_id,wl_users_coupon.user_id';
-        $list = self::where(['wl_coupon.status' => 1 /*, 'wl_users_coupon.st' => 1*/])->join('wl_users_coupon','wl_users_coupon.coupon_id = wl_coupon.id','LEFT')->field($field)->order('solution asc')->select();
-//        dump($list);exit;
+        $list = self::where(['wl_coupon.status' => 1 ])->order('solution asc')->select();
+        foreach ($list as $k => $v) {
+            $cid = $v->id;
+            $res = UserCoupon::getListByUidCid($user_id,$cid);
+            if(!$res){
+                $v -> get = 'no';
+            }else{
+                $v -> get = 'yes';
+            }
+        }
         return ['code' => 0,'data' => $list];
     }
 

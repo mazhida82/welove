@@ -10,8 +10,14 @@ class CouponController extends BaseController
      * 获取主页优惠券列表
      * @return \think\response\Json
      */
-    public function index(){
-        return json(Coupon::getList());
+    public function index(Request $request){
+        $data =$request -> param();
+        $rule = ['username'=>'require'];
+        $res = $this->validate($data,$rule);
+        if($res !== true){
+            return ['code' => __LINE__ , 'msg' => '用户名传值错误'];
+        }
+        return json(Coupon::getList($data['username']));
     }
 
     /**
@@ -19,15 +25,15 @@ class CouponController extends BaseController
      * @param Request $request
      * @return array|\think\response\Json
      */
-    public function get_list(Request $request){
-        $data =$request -> param();
-        $rule = ['username'=>'require'];
-        $res = $this->validate($data,$rule);
-        if($res !== true){
-            return ['code' => __LINE__ , 'msg' => '用户名传值错误'];
-        }
-        return json(Coupon::getCouponList($data['username']));
-    }
+//    public function get_list(Request $request){
+//        $data =$request -> param();
+//        $rule = ['username'=>'require'];
+//        $res = $this->validate($data,$rule);
+//        if($res !== true){
+//            return ['code' => __LINE__ , 'msg' => '用户名传值错误'];
+//        }
+//        return json(Coupon::getCouponList($data['username']));
+//    }
     /**
      * 用户在主页领取优惠券
      * @param Request $request
