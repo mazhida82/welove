@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="花卉管理">
-    <meta name="keywords" content="花卉管理 花卉管理 花卉管理 ">
+    <meta name="description" content="welove">
+    <meta name="keywords" content="welove ">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
     <title>{block name='title'}分类管理{/block}</title>
