@@ -9,7 +9,8 @@ class Coupon extends Base{
      * @return \think\response\Json
      */
     public static function getList(){
-        $list = self::where(['status'=>1])->order('solution asc')->select();
+        $field = 'wl_coupon.*,wl_users_coupon.coupon_id,wl_users_coupon.user_id';
+        $list = self::where(['wl_coupon.status' => 1 /*, 'wl_users_coupon.st' => 1*/])->join('wl_users_coupon','wl_users_coupon.coupon_id = wl_coupon.id','LEFT')->field($field)->order('solution asc')->select();
 //        dump($list);exit;
         return ['code','data'=>$list];
     }
@@ -26,7 +27,8 @@ class Coupon extends Base{
         $list = UserCoupon::getList($data);
         if(empty($list->data)){
             $res = (new UserCoupon())->save($data);
-            return ['code'=>0,'msg'=>'领取成功'];
+            $row = UserCoupon::getList($data);
+            return ['code' => 0,'msg' => '领取成功','coupon_id' => $row['coupon_id']];
         }else{
             return ['code'=>__LINE__,'msg'=>'请勿重新领取'];
         }

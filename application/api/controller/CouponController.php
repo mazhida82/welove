@@ -15,6 +15,20 @@ class CouponController extends BaseController
     }
 
     /**
+     * 领取优惠券前查询我领过的优惠券的详细信息
+     * @param Request $request
+     * @return array|\think\response\Json
+     */
+    public function get_list(Request $request){
+        $data =$request -> param();
+        $rule = ['username'=>'require'];
+        $res = $this->validate($data,$rule);
+        if($res !== true){
+            return ['code' => __LINE__ , 'msg' => '用户名传值错误'];
+        }
+        return json(Coupon::getCouponList($data['username']));
+    }
+    /**
      * 用户在主页领取优惠券
      * @param Request $request
      * @return \think\response\Json
