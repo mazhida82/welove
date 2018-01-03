@@ -22,7 +22,7 @@
 
                     <div class="form-group ">
                         <label for="sOrd" class="col-xs-3 control-label"><span
-                                style="color:red;">*&nbsp;&nbsp;</span></label>
+                                style="color:red;">&nbsp;&nbsp;</span></label>
                         <div class="col-xs-4 ">
                             <button type="button" id="addFile">增加</button>
 
@@ -31,7 +31,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="sOrd" class="col-xs-3 control-label"><span style="color:red;">*&nbsp;&nbsp;</span>大图：</label>
+                        <label for="sOrd" class="col-xs-3 control-label"><span style="color:red;">&nbsp;&nbsp;</span></label>
                         <div class="col-xs-8" id="img_wrap_div">
                             <div class="img_wrap">
                                 <label for="">规格:<input type="text" name="value[]" value="">&nbsp;&nbsp;价格：<input type="text" name="price[]"></label>
