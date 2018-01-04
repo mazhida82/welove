@@ -20,7 +20,7 @@
             <div class="">
                 <div class="container-fluid">
                     <div class="form-group">
-                        <label for="sOrd" class="col-xs-3 control-label"><span style="color:red;">*&nbsp;&nbsp;</span>大图：</label>
+                        <label for="sOrd" class="col-xs-3 control-label"></label>
                         <div class="col-xs-8" id="img_wrap_div">
                             <?php foreach($list as $row){?>
                                 <div class="img_wrap">
