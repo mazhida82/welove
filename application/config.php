@@ -20,7 +20,7 @@ return [
     'wx_spbill_create_ip'=>'211.149.154.103',
     'site_name' => 'welove',
     //上传图片限制大小
-    'upload_size'=>1048579,
+    'upload_size'=>2097158,
     'admin_session' => 'admin_wl',
     // 应用命名空间
     'app_namespace' => 'app',
