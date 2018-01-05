@@ -2,6 +2,8 @@
 
 namespace app\back\controller;
 
+use app\api\model\CartGood;
+use app\api\model\GoodImgBigs;
 use app\back\model\Base;
 use app\back\model\Good;
 use app\back\model\GoodAttr;
@@ -227,7 +229,17 @@ class GoodController extends BaseController {
             $this->error('没有大图');
         }
         $list_img_big = Db::table('wl_good_img_bigs')->where(['st' => 1, 'good_id' => $good_id])->select();
-        return $this->fetch('', ['good_id' => $good_id, 'referer' => $referer, 'title' => ' ' . $row_good->name . ' 商品大图', 'act' => 'update_img_bigs', 'list_img_big' => $list_img_big]);
+        $url = $request->url();
+        return $this->fetch('', ['good_id' => $good_id, 'referer' => $referer, 'title' => ' ' . $row_good->name . ' 商品大图', 'act' => 'update_img_bigs', 'list_img_big' => $list_img_big ,'url' => $url]);
+    }
+
+    public function delete_img_bigs(Request $request){
+        $data = $request->param();
+        if ($this->deleteStatusById($data['id'], new GoodImgBigs())) {
+            $this->success('删除成功', $data['url'], '', 1);
+        } else {
+            $this->error('删除失败', $data['url'], '', 3);
+        }
     }
 
     public function update_img_bigs(Request $request) {
@@ -238,10 +250,8 @@ class GoodController extends BaseController {
             $this->deleteImg($img_big['img_big']);
         }
         Db::table('wl_good_img_bigs')->where(['st' => 1, 'good_id' => $good_id])->update(['st' => 0]);
-        $referer = $request->post('referer');
-
         $this->saveById($good_id, new Good(), ['img_big_st' => 0]);
-        $this->success('清空大图成功', $referer, '', 1);
+        $this->success('清空大图成功', 'index', '', 1);
     }
 
     /**
@@ -299,6 +309,7 @@ class GoodController extends BaseController {
         $referer = $request->post('referer');
         (new Property())->where(['st'=>1,'good_id'=>$good_id])->update(['st'=>0]);
         $this->saveById($good_id, new Good(), ['property_st' => 0]);
+        (new CartGood())->where(['wl_cart_good.good_id' => $good_id,'wl_cart_good.property_id'=>['<>',0]]) -> update(['wl_cart_good.st' => 0]);
         $this->success('清空商品属性成功', $referer, '', 1);
     }
 }

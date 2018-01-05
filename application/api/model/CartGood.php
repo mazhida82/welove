@@ -67,9 +67,20 @@ class CartGood extends model {
     /*
      * useing
      * */
-    public static function getGoods($good_id) {
-        $list_ = self::where(['wl_cart_good.st'=>1,'wl_good.st'=>1])->join('wl_good','wl_cart_good.good_id=wl_good.id')->select();
-        return $list_;
+    public static function getGoods($data) {
+        $cart_id = $data['id'];
+        $list = self::where(['cart_id' => $cart_id , 'wl_cart_good.st' => 1])->select();
+        $arr = [];
+        foreach($list as $k=>$v){
+            $list_ = (new Good())->where(['wl_good.id' => $v['good_id'] , 'wl_good.st' => 1 ])->find();
+            if($v['property_id'] != 0){
+                    $property = (new Property())->where(['id' => $v['property_id']])->find();
+                    $list_['price'] = $property['price'];
+                    $list_['value'] = $property['value'];
+            }
+            $arr[$k] = $list_;
+        }
+        return $arr;
     }
 
 }
