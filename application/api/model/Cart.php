@@ -121,7 +121,7 @@ class Cart extends Base {
         try{
             //无规格
             if($data['property_id'] == 0){
-                $row_cart_good = CartGood::where(['cart_id'=>$data['cart_id'],'good_id'=>$data['good_id'],'property_id'=>0,'st'=>1])->find();
+                $row_cart_good = CartGood::where(['cart_id'=>$data['cart_id'],'good_id'=>$data['good_id'],'st'=>1])->find();
 
                 $minus_price = $row_cart_good->num * $row_good->price;
 
