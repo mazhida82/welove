@@ -2,13 +2,20 @@
 {block name="title"}后台登陆{/block}
 {block name="menu_left"}{/block}
 {block name="content"}
-<style>#rightContent {
+<style>
+    #rightContent {
         padding-left: 0;
-    }</style>
+    }
+
+    #wrap {
+        background: url(__STATIC__/images/login_bg.png) no-repeat;
+    }
+
+</style>
 <div role="tabpanel" class="tab-pane" id="chan" style="display:block;">
-    <div class="check-div">
+  <!--  <div class="check-div">
         welove后台登陆
-    </div>
+    </div>-->
     <div style="padding: 50px 0;margin-top: 50px;background-color: #fff; text-align: right;width: 420px;margin: 50px auto;">
         <form class="form-horizontal" action="{:Url('admin/sigin')}" method="post">
             <div class="form-group">

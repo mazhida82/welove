@@ -59,7 +59,11 @@ class Order extends Base{
             foreach ($good as $m => $n){
                 if($n['property_id'] != 0 ){
                     $property = (new Property())->where(['id'=>$n['property_id'],'st'=>1])->find();
-                    $n['property'] = $property -> value;
+                    if($property){
+
+                        $n['property'] = $property -> value;
+                    }
+
                 }
                 $list_order[$k]['total_num'] += $n['num'];
             }
