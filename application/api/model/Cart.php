@@ -82,11 +82,9 @@ class Cart extends Base {
             return ['code' => __LINE__, 'msg' => '无商品'];
         }
         $sum_price_all = 0;
-        if(!empty($list_cart->data)){
-            $list_good = CartGood::getGoods($list_cart->data);
-            foreach ($list_good as $k=>$v){
-                $sum_price_all += $v['price'];
-            }
+        $list_good = CartGood::getGoods($list_cart->data);
+        foreach ($list_good as $k=>$v){
+            $sum_price_all += $v['price'];
         }
         return ['code' => 0, 'msg' => '获取购物车数据成功', 'sum_price_all' => $sum_price_all, 'data' => $list_good];
     }

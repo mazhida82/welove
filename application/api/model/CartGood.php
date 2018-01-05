@@ -73,6 +73,7 @@ class CartGood extends model {
         $arr = [];
         foreach($list as $k=>$v){
             $list_ = (new Good())->where(['wl_good.id' => $v['good_id'] , 'wl_good.st' => 1 ])->find();
+            $list_['num'] = $v['num'];
             if($v['property_id'] != 0){
                     $property = (new Property())->where(['id' => $v['property_id']])->find();
                     $list_['price'] = $property['price'];
