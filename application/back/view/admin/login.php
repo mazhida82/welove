@@ -9,6 +9,7 @@
 
     #wrap {
         background: url(__STATIC__/images/login_bg.png) no-repeat;
+        height:auto !important;
     }
 
 </style>
