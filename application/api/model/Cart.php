@@ -91,6 +91,8 @@ class Cart extends Base {
                        $v['price'] = $property->price;
                        $v['property'] = $property->value;
                        $sum_price_all+= $property->price;
+                   }else{
+                       $sum_price_all+= $v->price;
                    }
 
                 }else{
