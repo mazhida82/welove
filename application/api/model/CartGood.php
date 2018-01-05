@@ -70,6 +70,7 @@ class CartGood extends model {
     public static function getGoods($data) {
         $cart_id = $data['id'];
         $list = self::where(['cart_id' => $cart_id , 'wl_cart_good.st' => 1])->select();
+        dump($list);exit;
         $arr = [];
         foreach($list as $k=>$v){
             $list_ = (new Good())->where(['wl_good.id' => $v['good_id'] , 'wl_good.st' => 1 ])->find();

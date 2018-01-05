@@ -216,6 +216,9 @@ class Order extends Base{
                 return ['code' => __LINE__ , 'msg' => '添加失败'];
             }
         }
+        (new Cart())->where(['user_id' => $user_id])->update(['wl_cart.st' => 0]);
+        $cart = (new Cart())->where(['user_id' => $user_id])->find();
+        (new CartGood())->where(['cart_id' => $cart['id']])->update(['wl_cart_good.st' => 0]);
         return ['code' => 0 , 'msg' => '订单生成成功' ,'data' => $new_order_id ];
     }
 
