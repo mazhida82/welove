@@ -84,7 +84,7 @@ class Cart extends Base {
         $sum_price_all = 0;
         $list_good = CartGood::getGoods($list_cart->data);
         foreach ($list_good as $k=>$v){
-            $sum_price_all += $v['price'];
+            $sum_price_all += $v['price']*$v['num'];
         }
         return ['code' => 0, 'msg' => '获取购物车数据成功', 'sum_price_all' => $sum_price_all, 'data' => $list_good];
     }
