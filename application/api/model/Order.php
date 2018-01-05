@@ -204,7 +204,7 @@ class Order extends Base{
             //  添加订单商品
             $data_order_good = [
                 'order_id'      => $new_order_id ,
-                'good_id'       => $good -> good_id ,
+                'good_id'       => $good -> id ,
                 'num'           => $good -> num ,
                 'st'            => OrderGood::ST_PREPARE ,
                 'img'           => $good -> img ,
