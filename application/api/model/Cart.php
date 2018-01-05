@@ -87,9 +87,11 @@ class Cart extends Base {
             foreach($list_good as $k=>$v){
                 if($v['property_st'] != 0){
                     $property = (new Property())->where(['id'=>$v['property_id']])->find();
-                    dump($property);
-                    $v['price'] = $property->price;
-                    $v['property'] = $property->value;
+                   if($property){
+                       $v['price'] = $property->price;
+                       $v['property'] = $property->value;
+                   }
+
                 }
             }
             $sum_price_all += $list_cart->data['sum_price'];
