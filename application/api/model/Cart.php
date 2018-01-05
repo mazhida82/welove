@@ -86,21 +86,12 @@ class Cart extends Base {
             $list_good = CartGood::getGoods($list_cart->data['id']);
             foreach($list_good as $k=>$v){
                 if($v['property_st'] != 0){
-                    $property = (new Property())->where(['id'=>$v['property_id'],'st'=>1])->find();
-                   if($property){
-                       $v['price'] = $property->price;
-                       $v['property'] = $property->value;
-                       $sum_price_all+= $property->price * $v->num;
-                   }else{
-                       $v['property_id'] = 0;
-                       $sum_price_all+= $v->price * $v->num;
-                   }
-
-                }else{
-                    $sum_price_all+= $v->price;
+                    $property = (new Property())->where(['id'=>$v['property_id']])->find();
+                    $v['price'] = $property->price;
+                    $v['property'] = $property->value;
                 }
             }
-            //$sum_price_all += $list_cart->data['sum_price'];
+            $sum_price_all += $list_cart->data['sum_price'];
         }
         return ['code' => 0, 'msg' => '获取购物车数据成功', 'sum_price_all' => $sum_price_all, 'data' => $list_good];
     }
@@ -121,7 +112,7 @@ class Cart extends Base {
         try{
             //无规格
             if($data['property_id'] == 0){
-                $row_cart_good = CartGood::where(['cart_id'=>$data['cart_id'],'good_id'=>$data['good_id'],'st'=>1])->find();
+                $row_cart_good = CartGood::where(['cart_id'=>$data['cart_id'],'good_id'=>$data['good_id'],'property_id'=>0,'st'=>1])->find();
 
                 $minus_price = $row_cart_good->num * $row_good->price;
 

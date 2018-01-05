@@ -60,7 +60,6 @@ class Order extends Base{
                 if($n['property_id'] != 0 ){
                     $property = (new Property())->where(['id'=>$n['property_id'],'st'=>1])->find();
                     if($property){
-
                         $n['property'] = $property -> value;
                     }
 
