@@ -79,14 +79,11 @@ class Good extends Base {
             return ['code'=>__LINE__,'msg'=>'没有此商品'];
         }
         if($list->data['property_st']==1){
+            $list->data['price'] = Property::where(['good_id'=>$list->data['id'],'st'=>1])->find();
             $property = Property::where(['good_id'=>$list->data['id'],'st'=>1])->select();
             $arr = $list->data;
             foreach($property as $k=>$v){
                 $arr['property'][$k] = $v->data;
-//                $array['price'] = $v->price;
-//                $array['value'] = $v->value;
-//                $ar = array_merge($arr,$array);
-//                $new[$k]=$ar;
             }
             return ['code'=>0,'data'=>$arr];
         }else{

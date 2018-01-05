@@ -68,38 +68,4 @@ class GoodController extends BaseController {
         return json(GoodImgBigs::getImg($data['good_id']));
     }
 
-
-//    public function collect(Request $request){
-//        $data = $request->param();
-//        $rule = ['good_id' => 'require|number','user_name'=>'require'];
-//        $res = $this->validate($data, $rule);
-//        if ($res !== true) {
-//            return json(['code' => __LINE__, 'msg' => $res]);
-//        }
-//         return json((new Collect)->addCollect($data['good_id'],$data['user_name']));
-//    }
-//
-//    /*
-//     * 商品详情接口
-//     * */
-//    public function read(Request $request){
-//        $data = $request->param();
-//        $rule = ['good_id' => 'require|number','username'=>'require'];
-//        $res = $this->validate($data, $rule);
-//        if ($res !== true) {
-//            return json(['code' => __LINE__, 'msg' => $res]);
-//        }
-//        return json(Good::findOne($data));
-//
-//    }
-//
-//    /**
-//     * 团购多图
-//     */
-//    public function getImages(Request $request){
-//        $data = $request->param();
-//        return json(TuanGou::getImg($data['t_id']));
-//    }
-
-
 }
