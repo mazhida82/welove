@@ -177,7 +177,7 @@ class Order extends Base{
             if( $data['sum_price_all'] >= $rule) {
                 $data['sum_price_all'] = $data['sum_price_all'] - $bestPrice;
                 //修改我的优惠券状态->已使用
-                (new UserCoupon())->where([ 'id' => $data['coupon_id'] , 'user_id' => $user_id ,'st' => 1 ])->update( [ 'st' => 0 ] );
+                (new UserCoupon())->where([ 'coupon_id' => $data['coupon_id'] , 'user_id' => $user_id ,'st' => 1 ])->update( [ 'st' => 0 ] );
             }else{
                 return [ 'code' => __LINE__ , 'msg' => '不满足优惠要求' ];
             }

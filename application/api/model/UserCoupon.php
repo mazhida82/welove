@@ -27,7 +27,7 @@ class UserCoupon extends Base{
     }
 
     public static function getListByUidCid($user_id,$cid){
-        $list = self::where(['user_id' => $user_id , 'coupon_id' => $cid ,'st'=>['<>',0]])->find();
+        $list = self::where(['user_id' => $user_id , 'coupon_id' => $cid ,'st' => ['<>',0]])->find();
         return $list;
     }
 }
