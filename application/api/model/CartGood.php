@@ -73,6 +73,7 @@ class CartGood extends model {
         $arr = [];
         foreach($list as $k=>$v){
             $list_ = (new Good())->where(['wl_good.id' => $v['good_id'] , 'wl_good.st' => 1 ])->find();
+            $list_['cart_good_id'] = $v['id'];
             $list_['num'] = $v['num'];
             $list_['cart_id'] = $v['cart_id'];
             $list_['property_id'] = $v['property_id'];
@@ -84,6 +85,33 @@ class CartGood extends model {
             $arr[$k] = $list_;
         }
         return $arr;
+    }
+
+    /**
+     * 购物车+
+     * @param $data
+     * @return array
+     */
+    public  function addGoods($data){
+        $list = self::where(['id' => $data['cart_good_id']])->find();
+        $data_ = ++$list->num;
+        $res = $this->where('id',$data['cart_good_id'])->update(['num' => $data_]);
+        if($res){
+            return ['code'=>0,'msg'=>'数量+1'];
+        }else{
+            return ['code'=>__LINE__,'msg'=>'增加数量失败'];
+        }
+    }
+
+    public function minusGoods($data){
+        $list = self::where(['id' => $data['cart_good_id']])->find();
+        $data_ = --$list->num;
+        $res = $this->where('id',$data['cart_good_id'])->update(['num' => $data_]);
+        if($res){
+            return ['code'=>0,'msg'=>'数量-1'];
+        }else{
+            return ['code'=>__LINE__,'msg'=>'减少数量失败'];
+        }
     }
 
 }

@@ -3,6 +3,7 @@
 namespace app\api\controller;
 
 use app\api\model\Cart;
+use app\api\model\CartGood;
 use think\Request;
 
 class CartController extends BaseController {
@@ -49,6 +50,37 @@ class CartController extends BaseController {
             return json(['code'=>__LINE__,'msg'=>$res]);
         }
         return json((new Cart)->deleteGood($data));
+    }
+
+    /**
+     * 购物车加数量
+     * @param Request $request
+     * @return mixed
+     */
+    public function add(Request $request){
+        $data = $request->param();
+        $rule = ['username'=>'require','cart_good_id'=>'require|number'];
+        $res = $this -> validate($data, $rule);
+        if(!$res){
+            return json(['code'=>__LINE__,'msg'=>$res]);
+        }
+        return json((new CartGood())->addGoods($data));
+    }
+
+
+    /**
+     * 购物车减数量
+     * @param Request $request
+     * @return mixed
+     */
+    public function minus(Request $request){
+        $data = $request->param();
+        $rule = ['username'=>'require','cart_good_id'=>'require|number'];
+        $res = $this -> validate($data, $rule);
+        if(!$res){
+            return json(['code'=>__LINE__,'msg'=>$res]);
+        }
+        return json((new CartGood())->minusGoods($data));
     }
 
 
