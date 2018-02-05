@@ -105,13 +105,18 @@ class CartGood extends model {
 
     public function minusGoods($data){
         $list = self::where(['id' => $data['cart_good_id']])->find();
-        $data_ = --$list->num;
-        $res = $this->where('id',$data['cart_good_id'])->update(['num' => $data_]);
-        if($res){
-            return ['code'=>0,'msg'=>'数量-1'];
+        if($list->num == 1){
+            return ['code'=>__LINE__,'msg'=>'受不了了,宝贝不能再减少了哦'];
         }else{
-            return ['code'=>__LINE__,'msg'=>'减少数量失败'];
+            $data_ = --$list->num;
+            $res = $this->where('id',$data['cart_good_id'])->update(['num' => $data_]);
+            if($res){
+                return ['code'=>0,'msg'=>'数量-1'];
+            }else{
+                return ['code'=>__LINE__,'msg'=>'减少数量失败'];
+            }
         }
+
     }
 
 }
